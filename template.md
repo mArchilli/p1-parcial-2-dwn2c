@@ -77,4 +77,4 @@ Inserten cualquier comentario u observacion que quieran mencionar.
 | Alumno/a | Nota | Observaciones |
 | --- | --- | --- |
 | Archilli, Matías | | |
-| Sanchez Liporace, Andrea | | |
+| Sanchez Liporace, Andrea | | | 
