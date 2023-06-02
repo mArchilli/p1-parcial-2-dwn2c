@@ -245,6 +245,15 @@ header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contened
     }
 }
 
+/* Modales */
+.modalDetalle{
+
+}
+.modalCarrito{
+    
+}
+
+/* destacar el disco*/
 .discoMasLargo{
     background-color: var(--bg-color-dark) !important;
 }
@@ -268,9 +277,64 @@ header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contened
     border-bottom: 38px solid var(--primary-color-dark);
     line-height: 18px;
     transform: rotate(-45deg);
-  }
+}
 
-  /** Footer */
+/** Modales */
+.modalDetalle{
+	position: fixed;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0,0,0,.9);
+}
+.modalDetalle a {
+	position: fixed;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	top: 1em;
+	right: 1em;
+	border-radius: 2.5em;
+	width: 3em;
+	height: 3em;
+	background-color: #F27649;
+	font-size: 1em;
+	font-weight: 400;
+	text-align: center;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.modalDetalle a:hover {
+	background-color: #FFFFFF;
+	color: #383E41;
+}
+.modalDetalle img {
+	height: 30%;
+}
+.modalDetalle h3, .modalDetalle p, .modalDetalle li {
+	margin: 0;
+	text-align: center;
+	color: #D0E0E3;
+}
+.modalDetalle li {
+	display: flex;
+	justify-content: space-around;
+	margin: .25em 0;
+	width: 90%;
+}
+.modalDetalle li span {
+	font-size: 1em;
+}
+
+/** Footer */
 footer {
     width: 70%;
     margin: 3em 15%;

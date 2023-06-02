@@ -95,7 +95,6 @@ for(let i = 0; i < aProductos.length; i++){
 }
 console.log(aCatalogo);
 
-
 /** 
  * Con un for of, se recorre cada objeto en aCroductos.
  * Se agrega el artículo del producto al elemento del DOM con el ID "contenedorProductos".
@@ -104,16 +103,21 @@ for (const producto of aCatalogo) {
     sectionPrincipal.append(producto.mostrarProducto());
 }
 
-/**
- * Programo función cerrar para ocultar ventana modal
- */
-/*
-function Cerrar() {
-    let cerrar = d.querySelector("#modalProducto");
-    cerrar.remove();
-}*/
 
+
+/**
+ * Agrega un producto al carrito.
+ * @param {Object} producto - El producto que se va a agregar al carrito.
+*/
 function agregarAlCarrito(producto){
     aCarrito.push(producto);
     console.log(aCarrito);
+}
+
+/**
+ * Programo función cerrar para ocultar ventana modal
+ */
+function Cerrar() {
+    let cerrar = document.querySelector("#modalProducto");
+    cerrar.remove();
 }

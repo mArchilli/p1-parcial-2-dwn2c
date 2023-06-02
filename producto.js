@@ -130,7 +130,7 @@ class producto {
                 buttonAgregarCarrito.innerText = `Agregar al carrito`;
                 buttonAgregarCarrito.classList.add("btn-agregarCarrito");
                 buttonAgregarCarrito.addEventListener('click', (e) => {
-                    // console.log(e.target.parentNode); 
+                    console.log(e.target.parentNode); 
                     const button = e.target; // con el .target se identifica que boton del html dispara la acción 
                     const articleProducto = button.parentNode; // con .parentNode hago referencia al article que esta identificado con el id del producto.
                     const productoId = articleProducto.dataset.id;
@@ -141,14 +141,50 @@ class producto {
                             break;
                         }
                     }
-                })
+                });
 
-                let buttonVerMas = document.createElement ("button");
+                let buttonVerMas = document.createElement("button");
                 buttonVerMas.innerText = `Ver más`;
                 buttonVerMas.classList.add("btn-verDetalle");
                 buttonVerMas.addEventListener('click', () => {
-                    // crear modal acá
-                })
+                        // Ventana modal producto
+                        const modalDetalle = document.createElement("div");
+                        modalDetalle.classList.add("modalDetalle"); 
+                        modalDetalle.setAttribute("id", "modalProducto");
+
+                        let h3Nombre = document.createElement("h3");
+                        h3Nombre.innerText = `${this.#nombre}`;
+        
+                        let aCerrar = document.createElement("a");
+                        aCerrar.setAttribute("href", "javascript:void(0)");
+                        aCerrar.innerText = "X";
+                        aCerrar.addEventListener('click', Cerrar());
+                        modalDetalle.appendChild(aCerrar);
+                        
+                        let imgImagen = document.createElement("img");
+                        imgImagen.setAttribute("src", this.#imagen);
+                        imgImagen.setAttribute("alt", this.#altImagen);
+        
+                        let pId = document.createElement("p");
+                        pId.innerText = `Codigo: ${this.#id}`;
+        
+                        let pCategoria = document.createElement("p");
+                        pCategoria.innerText = `Categoria: ${this.#categoria}`;
+        
+                        let pPrecio = document.createElement("p");
+                        pPrecio.innerText = `Precio: $${this.#precio}.-`;
+        
+                        let pDescripcion = document.createElement("p");
+                        pDescripcion.innerText = `Descripcion: ${this.#descripcion}`;
+
+                        modalDetalle.append(h3Nombre, imgImagen, pId, pCategoria, pPrecio, buttonAgregarCarrito);
+
+                        // Traemos el div que esta al mismo nivel de la seccion de productos
+                        const sectionProductos = document.querySelector("#contenedorProductos");
+                        sectionProductos.parentNode.appendChild(modalDetalle);
+                        return sectionProductos;
+                    }
+                );
 
         articleProducto.append(h3Nombre, imgImagen, pId, pCategoria, pPrecio, buttonAgregarCarrito, buttonVerMas);
         return articleProducto;
