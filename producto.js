@@ -104,6 +104,7 @@ class producto {
     mostrarProducto() {
         let articleProducto = document.createElement("article");
         articleProducto.classList.add("card");
+        articleProducto.dataset.id = this.#id; // con .dataset creo el atributo data-id en la card, para que tome el id del producto y se lo asigne a la card. De esta forma puedo identificar el producto al momento de agregarlo al carrito
 
             let h3Nombre = document.createElement("h3");
             h3Nombre.innerText = `${this.#nombre}`;
@@ -121,22 +122,35 @@ class producto {
                 let pPrecio = document.createElement("p");
                 pPrecio.innerText = `Precio: $${this.#precio}.-`;
 
-                let pDescripcion = document.createElement("p");
-                pDescripcion.innerText = `Descripcion: ${this.#descripcion}`;
+                // La descripción la voy a mostrar en el detalle
+                //let pDescripcion = document.createElement("p");
+                //pDescripcion.innerText = `Descripcion: ${this.#descripcion}`;
 
                 let buttonAgregarCarrito = document.createElement ("button");
                 buttonAgregarCarrito.innerText = `Agregar al carrito`;
                 buttonAgregarCarrito.classList.add("btn-agregarCarrito");
-                buttonAgregarCarrito.setAttribute("onclick", agregarProducto());
+                buttonAgregarCarrito.addEventListener('click', (e) => {
+                    // console.log(e.target.parentNode); 
+                    const button = e.target; // con el .target se identifica que boton del html dispara la acción 
+                    const articleProducto = button.parentNode; // con .parentNode hago referencia al article que esta identificado con el id del producto.
+                    const productoId = articleProducto.dataset.id;
+                    for (let producto of aProductos){
+                        if (producto.id == productoId){
+                            //console.log(producto);
+                            agregarAlCarrito(producto);
+                            break;
+                        }
+                    }
+                })
 
                 let buttonVerMas = document.createElement ("button");
                 buttonVerMas.innerText = `Ver más`;
                 buttonVerMas.classList.add("btn-verDetalle");
-                /*
-                * PREGUNTA: es acá que genero la modal para que se vea el detalle del producto?
-                */
+                buttonVerMas.addEventListener('click', () => {
+                    // crear modal acá
+                })
 
-        articleProducto.append(h3Nombre, imgImagen, pId, pCategoria, pPrecio, pDescripcion, buttonAgregarCarrito, buttonVerMas);
+        articleProducto.append(h3Nombre, imgImagen, pId, pCategoria, pPrecio, buttonAgregarCarrito, buttonVerMas);
         return articleProducto;
     }
 }

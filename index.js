@@ -70,6 +70,7 @@ let aProductos = [
  * Catalogo Array vacío para almacenar los productos que genero con la clase producto, en un catalago.
 */
 let aCatalogo = [];
+let aCarrito = [];
 
 /** 
  * Busco la etiqueta section del HTML con el ID "contenedorProductos", porque es donde quiero mostrar la estructura que creo con DOM para cada articulo de aCatalogo.
@@ -111,3 +112,8 @@ function Cerrar() {
     let cerrar = d.querySelector("#modalProducto");
     cerrar.remove();
 }*/
+
+function agregarAlCarrito(producto){
+    aCarrito.push(producto);
+    console.log(aCarrito);
+}
