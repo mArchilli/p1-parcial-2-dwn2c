@@ -94,24 +94,44 @@ main h3 {
 /* Minicarrito */
 header #minicarrito {
     display: flex;
+    direction: column;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
     background-color: var(--bg-color-dark);
     width: 50%;
     margin: 3em 25% 2em;
     z-index: 1;
 }
+header #minicarrito .detalleCarrito {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    color: var(--color-b);
+}
+header #minicarrito .detalleCarrito p {
+    color: var(--color-b);
+}
+header #minicarrito .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+header #minicarrito .filtros p {
+    color: var(--color-b);
+}
+header #minicarrito .filtros button:hover{
+    border: 1px solid var(--color-b);
+}
 header #minicarrito p span {
     font-weight: bold;
     font-size: 0.9em;
 }
-header #minicarrito a {
-    color: var(--color-b);
-    font-size: 0.9em;
-}
-header #minicarrito a:hover {
-    color: var(--secondary-color);
-}
+
 @media screen and (max-width: 1000px) {
     header #minicarrito {
         width: 90%;
@@ -127,7 +147,7 @@ header #minicarrito a:hover {
 }
 
 /* Botones */
-header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos .card  .btn-agregarCarrito {
+header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos .card .btn-agregarCarrito, .modalDetalle .datosProducto .detalleProducto .btn-agregarCarrito, header #minicarrito .filtros button {
     margin: .5em 0;
     border: 1px solid var(--bg-color-light);
     border-radius: .5em;
@@ -140,11 +160,21 @@ header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos 
     text-align: center;
     color: var(--bg-color-dark)
 }
-header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contenedorProductos .card  .btn-agregarCarrito:hover {
+header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contenedorProductos .card .btn-agregarCarrito:hover, .modalDetalle .datosProducto .detalleProducto .btn-agregarCarrito:hover {
     background: var(--primary-color-dark);
     color: var(--color-b);
     border: 1px solid var(--color-b);
 }
+header #minicarrito .filtros .btn-eliminar {
+    color: var(--color-b);
+    background-color: var(--primary-color-dark);
+}
+header #minicarrito .filtros .btn-eliminar:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+    transition: 1s;
+}
+/* Bo
 /* Botones */
 
 /* Seccion Discos */
@@ -182,7 +212,7 @@ header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contened
     border-radius: 2%;
     box-shadow: 0px 3px 5px -3px #000;
 }
-#contenedorProductos .card h3 {
+#contenedorProductos .card h3, .modalDetalle h3 {
     font-size: 2em;
     width: 75%;
     margin: 1em 12.5%;
@@ -245,14 +275,6 @@ header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contened
     }
 }
 
-/* Modales */
-.modalDetalle{
-
-}
-.modalCarrito{
-    
-}
-
 /* destacar el disco*/
 .discoMasLargo{
     background-color: var(--bg-color-dark) !important;
@@ -280,9 +302,17 @@ header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contened
 }
 
 /** Modales */
-.modalDetalle{
+/* Modal Carrito */
+.modalCarrito{
+}
+/* Modal Carrito */
+/* Modal Detalle Producto */
+.modalDetalle {
 	position: fixed;
 	z-index: 2;
+    width: 75%;
+    margin: 5% 12.5%;
+    height: 75%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -292,48 +322,108 @@ header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contened
 	bottom: 0;
 	right: 0;
 	background-color: rgba(0,0,0,.9);
+    border: 1px solid var(--color-b);
+    border-radius: 2%;
+}
+.datosProducto {
+    width: 80%;
+    margin: 5% 10%;
+    height: 75%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+    border-radius: 2%;
+}
+@media screen and (max-width: 750px) {
+    .datosProducto {
+        flex-direction: column;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: 2%;
+    }
 }
 .modalDetalle a {
-	position: fixed;
-	z-index: 1;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: -1em;
+    right: -1em;
+    border-radius: 2.5em;
+    width: 3em;
+    height: 3em;
+    background-color: var(--primary-color-dark);
+    font-size: 1em;
+    text-align: center;
+    color: var(--color-b);
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid var(--color-b);
+}
+.modalDetalle a:hover {
+	background-color: var(--primary-color);
+	color: var(--bg-color-dark);
+}
+.modalDetalle img {
+	width: 45%;
+    border: solid 1px var(--primary-color);
+    border-radius: 3%;
+}
+@media screen and (max-width: 450px) {
+    .modalDetalle img {
+        width: 60%;
+    }
+}
+.detalleProducto {
+    width: 40%;
+    margin: 1% 10%;
+    height: 75%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
-	top: 1em;
-	right: 1em;
-	border-radius: 2.5em;
-	width: 3em;
-	height: 3em;
-	background-color: #F27649;
-	font-size: 1em;
-	font-weight: 400;
-	text-align: center;
-	color: #FFFFFF;
-	text-decoration: none;
+	text-align: left;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
-.modalDetalle a:hover {
-	background-color: #FFFFFF;
-	color: #383E41;
+@media screen and (max-width: 750px) {
+    .detalleProducto {
+        width: 80%;
+        height: 60%;
+    }
 }
-.modalDetalle img {
-	height: 30%;
+.modalDetalle h3 {
+    width: 100%;
+    font-size: 3em;
+    margin: 3em 0 0
 }
-.modalDetalle h3, .modalDetalle p, .modalDetalle li {
-	margin: 0;
-	text-align: center;
-	color: #D0E0E3;
+@media screen and (max-width: 750px) {
+    .modalDetalle h3 {
+        margin: 2em 0 0
+    }
 }
-.modalDetalle li {
-	display: flex;
-	justify-content: space-around;
-	margin: .25em 0;
-	width: 90%;
+.modalDetalle p {
+	margin: 0 0 1em 0;
+	text-align: left;
+	color: var(--color-b);
+    font-size: 1.5em;
 }
-.modalDetalle li span {
-	font-size: 1em;
+@media screen and (max-width: 750px) {
+    .modalDetalle p {
+        font-size: 1.2em;
+    }
 }
-
+/* Modal Detalle Producto */
 /** Footer */
 footer {
     width: 70%;
