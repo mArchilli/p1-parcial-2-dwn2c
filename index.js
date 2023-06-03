@@ -102,8 +102,6 @@ for (const producto of aCatalogo) {
     sectionPrincipal.append(producto.mostrarProducto());
 }
 
-
-
 /**
  * Agrega un producto al carrito.
  * @param {Object} producto - El producto que se va a agregar al carrito.
@@ -114,7 +112,8 @@ function agregarAlCarrito(producto){
 }
 
 /**
- * Programo función para filtrar
+ * Filtra los productos por una categoría específica y muestra los resultados en la página.
+ * @param {string} categoriaElegida - La categoría por la cual filtrar los productos.
  */
 function filtrarPorCategoria(categoriaElegida) {
     sectionPrincipal.innerText = "";
