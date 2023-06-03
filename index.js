@@ -119,23 +119,22 @@ function filtrarPorCategoria(categoriaElegida) {
     sectionPrincipal.innerText = "";
     let arrayFiltrado = aCatalogo.filter((producto) => producto.getCategoria().includes(categoriaElegida));
     console.log(arrayFiltrado);
-    /*
-    Como ejecutar metodo mostrarProductos de la clase producto.js
-    */
+
     let buttonEliminarFiltro = document.createElement("button");
     buttonEliminarFiltro.innerText = 'Eliminar filtro';
+    buttonEliminarFiltro.classList.add("btn-eliminar");
     buttonEliminarFiltro.addEventListener('click', () => {
         for (const producto of aCatalogo) {
             sectionPrincipal.append(producto.mostrarProducto());
             buttonEliminarFiltro.remove();
         }
     });
-    let header = document.querySelector('header');
-    header.append(buttonEliminarFiltro);
+    let divFiltros = document.querySelector('.filtros');
+    divFiltros.append(buttonEliminarFiltro);
     for (const producto of arrayFiltrado) {
         console.log(producto);
         sectionPrincipal.append(producto.mostrarProducto());
         
     }
 }
-
+// Cuando aplicamos directamente un filtro nos agrega un eliminar de mas
