@@ -16,7 +16,7 @@ let aProductos = [
         descripcion: 'Descripción del producto',
         precio: 100,
         imagen: 'producto-de-ejemplo.jpg',
-        categoria: 'Categoría 1',
+        categoria: 'categoria1',
         altImagen: 'Soy la descripcion de la imagen del producto 1',
     },
     {
@@ -25,7 +25,7 @@ let aProductos = [
         descripcion: 'Descripción del producto',
         precio: 200,
         imagen: 'producto-de-ejemplo.jpg',
-        categoria: 'Categoría 1',
+        categoria: 'categoria1',
         altImagen: 'Soy la descripcion de la imagen del producto 2',
     },
     {
@@ -34,7 +34,7 @@ let aProductos = [
         descripcion: 'Descripción del producto',
         precio: 300,
         imagen: 'producto-de-ejemplo.jpg',
-        categoria: 'Categoría 2',
+        categoria: 'categoria2',
         altImagen: 'Soy la descripcion de la imagen del producto 3',
     },
     {
@@ -43,7 +43,7 @@ let aProductos = [
         descripcion: 'Descripción del producto',
         precio: 400,
         imagen: 'producto-de-ejemplo.jpg',
-        categoria: 'Categoría 2',
+        categoria: 'categoria2',
         altImagen: 'Soy la descripcion de la imagen del producto 4',
     },
     {
@@ -52,7 +52,7 @@ let aProductos = [
         descripcion: 'Descripción del producto',
         precio: 500,
         imagen: 'producto-de-ejemplo.jpg',
-        categoria: 'Categoría 3',
+        categoria: 'categoria3',
         altImagen: 'Soy la descripcion de la imagen del producto 5',
     },
     {
@@ -61,7 +61,7 @@ let aProductos = [
         descripcion: 'Descripción del producto',
         precio: 600,
         imagen: 'producto-de-ejemplo.jpg',
-        categoria: 'Categoría 3',
+        categoria: 'categoria3',
         altImagen: 'Soy la descripcion de la imagen del producto 6',
     },
 ];
@@ -93,7 +93,6 @@ for(let i = 0; i < aProductos.length; i++){
         );
     aCatalogo.push(nuevoProducto);
 }
-console.log(aCatalogo);
 
 /** 
  * Con un for of, se recorre cada objeto en aCroductos.
@@ -115,9 +114,29 @@ function agregarAlCarrito(producto){
 }
 
 /**
- * Programo función cerrar para ocultar ventana modal
+ * Programo función para filtrar
  */
-function Cerrar() {
-    let cerrar = document.querySelector("#modalProducto");
-    cerrar.remove();
+function filtrarPorCategoria(categoriaElegida) {
+    sectionPrincipal.innerText = "";
+    let arrayFiltrado = aCatalogo.filter((producto) => producto.getCategoria().includes(categoriaElegida));
+    console.log(arrayFiltrado);
+    /*
+    Como ejecutar metodo mostrarProductos de la clase producto.js
+    */
+    let buttonEliminarFiltro = document.createElement("button");
+    buttonEliminarFiltro.innerText = 'Eliminar filtro';
+    buttonEliminarFiltro.addEventListener('click', () => {
+        for (const producto of aCatalogo) {
+            sectionPrincipal.append(producto.mostrarProducto());
+            buttonEliminarFiltro.remove();
+        }
+    });
+    let header = document.querySelector('header');
+    header.append(buttonEliminarFiltro);
+    for (const producto of arrayFiltrado) {
+        console.log(producto);
+        sectionPrincipal.append(producto.mostrarProducto());
+        
+    }
 }
+
