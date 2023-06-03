@@ -218,7 +218,7 @@ class producto {
                                             }
                                         }
                                     });
-
+                        // Los divs que cree son por una decisión de diseño
                         detalleProducto.append(pId, pCategoria, pPrecio, pDescripcion, buttonAgregarCarrito);
                         datosProducto.append(imgImagen, detalleProducto);
                         modalDetalle.append(aCerrar, h3Nombre, datosProducto);
