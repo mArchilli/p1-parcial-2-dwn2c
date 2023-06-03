@@ -134,7 +134,6 @@ function filtrarPorCategoria(categoriaElegida) {
     for (const producto of arrayFiltrado) {
         console.log(producto);
         sectionPrincipal.append(producto.mostrarProducto());
-        
     }
-}
+} 
 // Cuando aplicamos directamente un filtro nos agrega un eliminar de mas
