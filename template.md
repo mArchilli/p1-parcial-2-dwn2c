@@ -40,7 +40,7 @@ Inserten cualquier comentario u observacion que quieran mencionar.
 | --- | --- | --- |
 | Se implemento al menos una clase | Si | producto.js
 | Se hizo uso de de metodos nativos de DOM | Si | En el método mostrarProducto() de la clase producto.js
-| No se crearon elementos mediante insersion con `innerHTML` | No | Por el momento solo creamos html en la clase producto.js
+| No se crearon elementos mediante insersion con `innerHTML` | No | Solo se usa para limpiar el div productos tras elimimar un filtro aplicado
 | Todos los elementos del catalogo se crean dinamicamente | Si | En el método mostrarProducto() de la clase producto.js
 
 ## Adicionales
