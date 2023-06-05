@@ -72,6 +72,8 @@ let aProductos = [
 */
 let aCatalogo = [];
 let aCarrito = [];
+let precioTotal = 0;
+let contadorProductos = 0;
 
 /** 
  * Busco la etiqueta section del HTML con el ID "contenedorProductos", porque es donde quiero mostrar la estructura que creo con DOM para cada articulo de aCatalogo.
@@ -161,8 +163,119 @@ function filtrarPorCategoria(categoriaElegida) {
  * @param {Object} producto - El producto que se va a agregar al carrito.
 */
 function agregarAlCarrito(producto){
+    let itemCarrito = document.querySelector("#itemsCarrito");
+    let precioFinal = document.querySelector("#totalPagar");
+
+    let itemCarritoModal = document.querySelector("#pCantProductosModal");
+    let precioFinalModal = document.querySelector("#pPrecioTotalModal");
+
+    precioTotal += producto.getPrecio();
     aCarrito.push(producto);
+    contadorProductos++;
+
+    if(itemCarritoModal || precioFinalModal != null){
+        itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
+        precioFinalModal.innerText = "Total a pagar: $" + precioTotal;
+    }
+    
+    itemCarrito.innerText = contadorProductos;
+    precioFinal.innerText = precioTotal;
+}
+
+function eliminarDelCarrito(producto, indice){
+    let itemCarrito = document.querySelector("#itemsCarrito");
+    let precioFinal = document.querySelector("#totalPagar");
+
+    let itemCarritoModal = document.querySelector("#pCantProductosModal");
+    let precioFinalModal = document.querySelector("#pPrecioTotalModal");
+    
+    precioTotal -= producto.getPrecio();
+    
+    console.log(indice);
+    console.log(aCarrito.length);
+    for (let i=indice; i<aCarrito.length; i++) {
+        aCarrito[i] = aCarrito[i+1];
+    }
+    contadorProductos--;
+    aCarrito.pop();
+
+    if(itemCarritoModal || precioFinalModal != null){
+        itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
+        precioFinalModal.innerText = "Total a pagar: $" + precioTotal;
+    }
+    
+    itemCarrito.innerText = contadorProductos;
+    precioFinal.innerText = precioTotal;
     console.log(aCarrito);
+}
+
+function verCarrito () {
+    let modalDetalle = document.querySelector("#modalProducto");
+    let modalCarrito = document.querySelector("#modalCarrito");
+
+    if(modalDetalle){
+        modalDetalle.remove();
+    }
+
+    if (modalCarrito) {
+        modalCarrito.remove();
+    }
+
+    modalCarrito = document.createElement("div");
+    modalCarrito.classList.add("modalCarrito");
+    modalCarrito.setAttribute("id", "modalCarrito");
+
+    const aCerrar = document.createElement("a");
+    aCerrar.setAttribute("href", "javascript:void(0)");
+    aCerrar.innerText = "X";
+    aCerrar.addEventListener('click', () => {
+        let cerrar = document.querySelector("#modalCarrito");
+        cerrar.remove();
+    });
+    
+    const h3Carrito = document.createElement("h3");
+    h3Carrito.innerText = "Mi Carrito";
+
+    const pPrecioTotal = document.createElement("p");
+    pPrecioTotal.setAttribute('id','pPrecioTotalModal');
+    pPrecioTotal.innerText = "Total a pagar: $" + precioTotal;
+
+    const pCantProductos = document.createElement("p");
+    pCantProductos.setAttribute('id','pCantProductosModal');
+    pCantProductos.innerText = "Cantidad de productos: " + contadorProductos;
+
+    /*Como mostramos la cantidad de productos totales si lo tenemos en un span*/
+
+    const divProductosCarrito = document.createElement("div");
+    divProductosCarrito.classList.add('productosCarrito');
+
+    const buttonVaciar = document.createElement("button");
+    buttonVaciar.innerText = "Vaciar carrito";
+    buttonVaciar.classList.add("btn-vaciarCarrito");
+    buttonVaciar.addEventListener('click', () => {
+        aCarrito = [];
+        precioTotal = 0;
+        contadorProductos = 0;
+        divProductosCarrito.innerHTML = "";
+        pPrecioTotal.innerText = "Total a pagar: $" + precioTotal;
+        pCantProductos.innerText = "Cantidad de productos: " + contadorProductos;
+        //console.log(aCarrito);
+    });
+    
+    
+    for (const producto of aCarrito) {
+        divProductosCarrito.append(producto.mostrarMiniProducto());
+    }
+
+
+
+
+    modalCarrito.append(aCerrar, h3Carrito, pPrecioTotal, pCantProductos, divProductosCarrito, buttonVaciar);
+
+    // Traemos el div que esta al mismo nivel de la seccion de productos
+    const sectionProductos = document.querySelector("#contenedorProductos");
+    sectionProductos.parentNode.appendChild(modalCarrito);
+    return sectionProductos;
 }
 
 /* 

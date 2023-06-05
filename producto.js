@@ -87,6 +87,7 @@ class producto {
         return this.#descripcion;
     }
 
+
     /**
      * Con este método se muestra el producto en el documento HTML.
      * Se crea la siguiente estructura:
@@ -115,6 +116,72 @@ class producto {
      *          </div>
      * </article>
     */
+
+    mostrarMiniProducto() {
+        const divMiniProducto = document.createElement("div");
+        divMiniProducto.dataset.id = this.#id;
+
+        let pNombreMiniProducto = document.createElement("p");
+        pNombreMiniProducto.innerText = `${this.#nombre}`;
+
+        let pPrecioMiniProducto = document.createElement("p");
+        pPrecioMiniProducto.innerText = `Precio: $${this.#precio}.-`;
+
+        let pCantProducto = document.createElement("p");
+        let cantProducto = 1;
+
+        pCantProducto.innerText = cantProducto;
+
+        let buttonAgregarCarrito = document.createElement ("button");
+                buttonAgregarCarrito.innerText = ` + `;
+                buttonAgregarCarrito.classList.add("btn-agregarCarrito");
+                buttonAgregarCarrito.addEventListener('click', () => {
+                    const productoId = this.#id;
+                    console.log(productoId);
+                    console.log(divMiniProducto.dataset.id);
+                    if(productoId != divMiniProducto.dataset.id) {
+                        for (let producto of aCarrito){
+                            if (producto.#id == productoId){
+                                //console.log(producto);
+                                agregarAlCarrito(producto);
+                                break;
+                            }
+                        }
+                    } else {
+                        cantProducto++;
+                        console.log(cantProducto);
+                        pCantProducto.innerText = cantProducto;
+                        /*Falta agregar el producto a aCarrito*/
+                    }
+                    
+                });
+
+            let buttonEliminarDelCarrito = document.createElement ("button");
+            buttonEliminarDelCarrito.innerText = ` - `;
+            buttonEliminarDelCarrito.classList.add("btn-eliminarCarrito");
+            buttonEliminarDelCarrito.addEventListener('click', () => {
+                const productoId = this.#id;
+                /*if (producto.#id == productoId){
+                        console.log(producto);
+                        eliminarDelCarrito(producto);
+                        break;
+                    }*/
+                for(let i=0; i<aCarrito.length; i++){
+                    if(aCarrito[i].#id == productoId) {
+                        eliminarDelCarrito(aCarrito[i], i);
+                        break;
+                    }
+                }
+            });
+
+        /*Como mostramos la cantidad de un mismo producto*/
+        /*Sumar boton agregar, hacer boton eliminar y boton eliminar*/
+
+        divMiniProducto.append(pNombreMiniProducto, pPrecioMiniProducto,  buttonAgregarCarrito, pCantProducto, buttonEliminarDelCarrito);
+
+        return divMiniProducto;
+    }
+
     mostrarProducto() {
         let articleProducto = document.createElement("article");
         articleProducto.classList.add("card");
@@ -148,8 +215,8 @@ class producto {
                     const button = e.target; // con el .target se identifica que boton del html dispara la acción 
                     const articleProducto = button.parentNode; // con .parentNode hago referencia al article que esta identificado con el id del producto.
                     const productoId = articleProducto.dataset.id;
-                    for (let producto of aProductos){
-                        if (producto.id == productoId){
+                    for (let producto of aCatalogo){
+                        if (producto.#id == productoId){
                             //console.log(producto);
                             agregarAlCarrito(producto);
                             break;
@@ -162,7 +229,16 @@ class producto {
                 buttonVerMas.classList.add("btn-verDetalle");
                 buttonVerMas.addEventListener('click', () => {
                         // Ventana modal producto
-                        const modalDetalle = document.createElement("div");
+                        let modalDetalle = document.querySelector("#modalProducto");
+                        let modalCarrito = document.querySelector("#modalCarrito");
+                        if(modalDetalle){
+                            modalDetalle.remove();
+                        } 
+                        if(modalCarrito){
+                            modalCarrito.remove();
+                        }
+
+                        modalDetalle = document.createElement("div");
                         modalDetalle.classList.add("modalDetalle"); 
                         modalDetalle.setAttribute("id", "modalProducto");
                         modalDetalle.dataset.id = this.#id;
@@ -204,14 +280,10 @@ class producto {
                                     let buttonAgregarCarrito = document.createElement ("button");
                                     buttonAgregarCarrito.innerText = `Agregar al carrito`;
                                     buttonAgregarCarrito.classList.add("btn-agregarCarrito");
-                                    buttonAgregarCarrito.addEventListener('click', (e) => {
-                                        //console.log(e.target.parentNode); 
-                                        const button = e.target; // con el .target se identifica que boton del html dispara la acción 
-
-                                        const articleProducto = button.parentNode; // con .parentNode hago referencia al article que esta identificado con el id del producto.
-                                        const productoId = articleProducto.dataset.id;
-                                        for (let producto of aProductos){
-                                            if (producto.id == productoId){
+                                    buttonAgregarCarrito.addEventListener('click', () => {
+                                        const productoId = this.#id;
+                                        for (let producto of aCatalogo){
+                                            if (producto.#id == productoId){
                                                 //console.log(producto);
                                                 agregarAlCarrito(producto);
                                                 break;

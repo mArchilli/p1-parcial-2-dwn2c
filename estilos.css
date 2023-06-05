@@ -307,7 +307,7 @@ header #minicarrito .filtros .btn-eliminar:hover {
 }
 /* Modal Carrito */
 /* Modal Detalle Producto */
-.modalDetalle {
+.modalDetalle, .modalCarrito {
 	position: fixed;
 	z-index: 2;
     width: 75%;
@@ -349,7 +349,7 @@ header #minicarrito .filtros .btn-eliminar:hover {
         border-radius: 2%;
     }
 }
-.modalDetalle a {
+.modalDetalle a, .modalCarrito a {
     position: absolute;
     z-index: 1;
     display: flex;
