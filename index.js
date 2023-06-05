@@ -182,6 +182,11 @@ function agregarAlCarrito(producto){
     precioFinal.innerText = precioTotal;
 }
 
+/**
+ * Elimina un producto del carrito de compras.
+ * @param {Producto} producto - El producto a eliminar.
+ * @param {number} indice - El índice del producto en el carrito.
+*/
 function eliminarDelCarrito(producto, indice){
     let itemCarrito = document.querySelector("#itemsCarrito");
     let precioFinal = document.querySelector("#totalPagar");
@@ -209,6 +214,10 @@ function eliminarDelCarrito(producto, indice){
     console.log(aCarrito);
 }
 
+/**
+ * Muestra el carrito de compras en una ventana modal.
+ * @returns {Element} El elemento HTML que contiene los productos del carrito.
+*/
 function verCarrito () {
     let modalDetalle = document.querySelector("#modalProducto");
     let modalCarrito = document.querySelector("#modalCarrito");
@@ -262,15 +271,20 @@ function verCarrito () {
         //console.log(aCarrito);
     });
     
+    const buttonComprar = document.createElement("button");
+    buttonComprar.innerText = "Reservar productos";
+    buttonComprar.classList.add("btn-compra");
+    buttonComprar.addEventListener('click', () => {
+        // Ejecuta la funcion ralizar compra que muestra una modal con un mensaje de productos reservados
+        // A futuro mostrará un formulario para realizar la compra directamente
+        realizarCompra()
+    });
     
     for (const producto of aCarrito) {
         divProductosCarrito.append(producto.mostrarMiniProducto());
     }
 
-
-
-
-    modalCarrito.append(aCerrar, h3Carrito, pPrecioTotal, pCantProductos, divProductosCarrito, buttonVaciar);
+    modalCarrito.append(aCerrar, h3Carrito, pPrecioTotal, pCantProductos, divProductosCarrito, buttonComprar, buttonVaciar);
 
     // Traemos el div que esta al mismo nivel de la seccion de productos
     const sectionProductos = document.querySelector("#contenedorProductos");
@@ -278,24 +292,43 @@ function verCarrito () {
     return sectionProductos;
 }
 
-/* 
-    aCarrito esta declarado como un array vacio, pero deberia ser un objeto con al menos tres propiedas para el minicarrito:
-    - ids -> como array para gaurdar los ids de los productos y  poder identificarlos despues al querer mostrarlos en la modal del carrito
-    - cantidadProductos -> como array
-    - pagoTotal 
+/**
+ * Muestra un modal de confirmación de compra.
+ * @returns {Element} Una ventana modal con un mensaje de reserva exitosa, con el form de compra desarrollado, mostraría el form de compra
+*/
+function realizarCompra() {
+    let modalDetalle = document.querySelector("#modalProducto");
+    let modalCarrito = document.querySelector("#modalCarrito");
 
-    let aCarrito {
-        ids : [],
-        cantidadProductos : [],
-        pagoTotal : 0,
+    if(modalDetalle){
+        modalDetalle.remove();
     }
 
-    Tambien precisamos 1 variable para contar los productos agregados al carrito y 1 variable para acumular el precio de cada producto agregado al carrito
+    if (modalCarrito) {
+        modalCarrito.remove();
+    }
 
-    En la función agregar guardo el precio del producto agregado en una variable
-    lo sumo a "pagoTotal" para llevar el total actualizado
-    acumulo un producto 
-    acumulo el precio
+    let modalCompra = document.createElement("div");
+    modalCompra.classList.add("modalCompra");
+    modalCompra.setAttribute("id", "modalCompra");
 
-    identifico las etiquetas en el html para mostrar el valor de los dos acumuladores
-*/
+    const aCerrar = document.createElement("a");
+    aCerrar.setAttribute("href", "javascript:void(0)");
+    aCerrar.innerText = "X";
+    aCerrar.addEventListener('click', () => {
+        let cerrar = document.querySelector("#modalCompra");
+        cerrar.remove();
+    });
+
+    const h3Compra = document.createElement("h3");
+    h3Compra.innerText = "Gracias por tu reserva";
+
+    const pCompra1 = document.createElement("p");
+    pCompra1.innerText = "La reserva de tus productos se realizó con éxito";
+
+    const pCompra2 = document.createElement("p");
+    pCompra2.innerText = "Para finalizar tu compra envianos un mail con el n° de reserva a la casilla: archilli-sanchezliporace@programacion1.com";
+
+    // Traemos el div que esta al mismo nivel de la seccion de productos
+    // No termino de darme cuenta como crear un hijo de la modal carrito
+}

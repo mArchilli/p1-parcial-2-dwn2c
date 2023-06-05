@@ -87,7 +87,6 @@ class producto {
         return this.#descripcion;
     }
 
-
     /**
      * Con este método se muestra el producto en el documento HTML.
      * Se crea la siguiente estructura:
@@ -97,7 +96,6 @@ class producto {
      *          <p>Código: ${this.#id}</p>
      *          <p>Categoria: ${this.#categoria}</p>
      *          <p>Precio: ${this.#precio}</p>
-     *          <p>Descripcion: ${this.#descripcion}</p>
      *          <button>Agregar al carrito</button>
      *          <button>Ver más</button>
      *          Modal Detalle Producto
@@ -116,72 +114,6 @@ class producto {
      *          </div>
      * </article>
     */
-
-    mostrarMiniProducto() {
-        const divMiniProducto = document.createElement("div");
-        divMiniProducto.dataset.id = this.#id;
-
-        let pNombreMiniProducto = document.createElement("p");
-        pNombreMiniProducto.innerText = `${this.#nombre}`;
-
-        let pPrecioMiniProducto = document.createElement("p");
-        pPrecioMiniProducto.innerText = `Precio: $${this.#precio}.-`;
-
-        let pCantProducto = document.createElement("p");
-        let cantProducto = 1;
-
-        pCantProducto.innerText = cantProducto;
-
-        let buttonAgregarCarrito = document.createElement ("button");
-                buttonAgregarCarrito.innerText = ` + `;
-                buttonAgregarCarrito.classList.add("btn-agregarCarrito");
-                buttonAgregarCarrito.addEventListener('click', () => {
-                    const productoId = this.#id;
-                    console.log(productoId);
-                    console.log(divMiniProducto.dataset.id);
-                    if(productoId != divMiniProducto.dataset.id) {
-                        for (let producto of aCarrito){
-                            if (producto.#id == productoId){
-                                //console.log(producto);
-                                agregarAlCarrito(producto);
-                                break;
-                            }
-                        }
-                    } else {
-                        cantProducto++;
-                        console.log(cantProducto);
-                        pCantProducto.innerText = cantProducto;
-                        /*Falta agregar el producto a aCarrito*/
-                    }
-                    
-                });
-
-            let buttonEliminarDelCarrito = document.createElement ("button");
-            buttonEliminarDelCarrito.innerText = ` - `;
-            buttonEliminarDelCarrito.classList.add("btn-eliminarCarrito");
-            buttonEliminarDelCarrito.addEventListener('click', () => {
-                const productoId = this.#id;
-                /*if (producto.#id == productoId){
-                        console.log(producto);
-                        eliminarDelCarrito(producto);
-                        break;
-                    }*/
-                for(let i=0; i<aCarrito.length; i++){
-                    if(aCarrito[i].#id == productoId) {
-                        eliminarDelCarrito(aCarrito[i], i);
-                        break;
-                    }
-                }
-            });
-
-        /*Como mostramos la cantidad de un mismo producto*/
-        /*Sumar boton agregar, hacer boton eliminar y boton eliminar*/
-
-        divMiniProducto.append(pNombreMiniProducto, pPrecioMiniProducto,  buttonAgregarCarrito, pCantProducto, buttonEliminarDelCarrito);
-
-        return divMiniProducto;
-    }
-
     mostrarProducto() {
         let articleProducto = document.createElement("article");
         articleProducto.classList.add("card");
@@ -304,5 +236,88 @@ class producto {
 
         articleProducto.append(h3Nombre, imgImagen, pId, pCategoria, pPrecio, buttonAgregarCarrito, buttonVerMas);
         return articleProducto;
+    }
+
+    /**
+     * Crea y muestra un mini producto en la página.
+     * @returns {HTMLDivElement} El elemento div que representa el mini producto.
+     * Se crea la siguiente estructura:
+     * <div data-id="valor igual al producto">
+     *      <h3>${this.#nombre}</h3>
+     *      <p>${this.#nombre}</p>
+     *      <p>${this.#precio}</p>
+     *      <div class="masMenosProductos">
+     *          <button> + </button>
+     *          <p>Cantidad productos con el mismo id</p>
+     *          <button> - </button>    
+     *      </div>
+     * </div>
+    */
+    mostrarMiniProducto() {
+        // Creamos el elemento div que contendrá el mini producto y las etiquetas que organizan la información
+        const divMiniProducto = document.createElement("div");
+        divMiniProducto.dataset.id = this.#id;
+
+            let pNombreMiniProducto = document.createElement("p");
+            pNombreMiniProducto.innerText = `${this.#nombre}`;
+
+            let pPrecioMiniProducto = document.createElement("p");
+            pPrecioMiniProducto.innerText = `Precio por unidad: $${this.#precio}.-`;
+
+            const masMenosProductos = document.createElement("div");
+            masMenosProductos.classList.add("masMenosProductos")
+
+            let pCantProducto = document.createElement("p");
+            let cantProducto = 1;
+
+            pCantProducto.innerText = cantProducto;
+
+        let buttonAgregarCarrito = document.createElement ("button");
+                buttonAgregarCarrito.innerText = ` + `;
+                buttonAgregarCarrito.classList.add("btn-agregarCarrito");
+                buttonAgregarCarrito.addEventListener('click', () => {
+                    const productoId = this.#id;
+                    console.log(productoId);
+                    console.log(divMiniProducto.dataset.id);
+                    if(productoId != divMiniProducto.dataset.id) {
+                        for (let producto of aCarrito){
+                            if (producto.#id == productoId){
+                                //console.log(producto);
+                                agregarAlCarrito(producto);
+                                break;
+                            }
+                        }
+                    } else {
+                        cantProducto++;
+                        console.log(cantProducto);
+                        pCantProducto.innerText = cantProducto;
+                        /*Falta agregar el producto a aCarrito*/
+                    }
+                    
+                });
+
+            let buttonEliminarDelCarrito = document.createElement ("button");
+            buttonEliminarDelCarrito.innerText = ` - `;
+            buttonEliminarDelCarrito.classList.add("btn-eliminarCarrito");
+            buttonEliminarDelCarrito.addEventListener('click', () => {
+                const productoId = this.#id;
+                /*if (producto.#id == productoId){
+                        console.log(producto);
+                        eliminarDelCarrito(producto);
+                        break;
+                    }*/
+                for(let i=0; i<aCarrito.length; i++){
+                    if(aCarrito[i].#id == productoId) {
+                        eliminarDelCarrito(aCarrito[i], i);
+                        break;
+                    }
+                }
+            });
+
+        /*Como mostramos la cantidad de un mismo producto*/
+        masMenosProductos.append(buttonAgregarCarrito, pCantProducto, buttonEliminarDelCarrito)
+        divMiniProducto.append(pNombreMiniProducto, pPrecioMiniProducto, masMenosProductos);
+
+        return divMiniProducto;
     }
 }
