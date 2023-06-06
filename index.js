@@ -217,6 +217,19 @@ function eliminarDelCarrito(producto, indice){
 /**
  * Muestra el carrito de compras en una ventana modal.
  * @returns {Element} El elemento HTML que contiene los productos del carrito.
+ * Se crea la siguiente estructura:
+ * <div class="modalCarrito">
+ *      <a href="javascript:void(0)"></a>
+ *      <h3>Mi Carrito</h3>
+ *          <div class="totalesCarrito">
+ *              <p>Total a Pagar: pPrecioTotalModal</p>
+ *              <p>Cantidad de productos: contadorProductos</p>
+ *          </div>
+ *          <div class="totalesCarrito">
+ *              <p>Total a Pagar: pPrecioTotalModal</p>
+ *              <p>Cantidad de productos: contadorProductos</p>
+ *          </div>
+ * </div>
 */
 function verCarrito () {
     let modalDetalle = document.querySelector("#modalProducto");
@@ -234,57 +247,64 @@ function verCarrito () {
     modalCarrito.classList.add("modalCarrito");
     modalCarrito.setAttribute("id", "modalCarrito");
 
-    const aCerrar = document.createElement("a");
-    aCerrar.setAttribute("href", "javascript:void(0)");
-    aCerrar.innerText = "X";
-    aCerrar.addEventListener('click', () => {
-        let cerrar = document.querySelector("#modalCarrito");
-        cerrar.remove();
-    });
+        const aCerrar = document.createElement("a");
+        aCerrar.setAttribute("href", "javascript:void(0)");
+        aCerrar.innerText = "X";
+        aCerrar.addEventListener('click', () => {
+            let cerrar = document.querySelector("#modalCarrito");
+            cerrar.remove();
+        });
+        
+        const h3Carrito = document.createElement("h3");
+        h3Carrito.innerText = "Mi Carrito";
+
+        const totalesCarrito = document.createElement("div");
+        totalesCarrito.classList.add("totalesCarrito");
+
+            const pPrecioTotal = document.createElement("p");
+            pPrecioTotal.setAttribute('id','pPrecioTotalModal');
+            pPrecioTotal.innerText = "Total a pagar: $" + precioTotal;
+
+            const pCantProductos = document.createElement("p");
+            pCantProductos.setAttribute('id','pCantProductosModal');
+            pCantProductos.innerText = "Cantidad de productos: " + contadorProductos;
+
+            /*Como mostramos la cantidad de productos totales si lo tenemos en un span*/
+
+            const divProductosCarrito = document.createElement("div");
+            divProductosCarrito.classList.add("productosCarrito");
+                for (const producto of aCarrito) {
+                    divProductosCarrito.append(producto.mostrarMiniProducto());
+                }
+
+            const botonesCarrito = document.createElement("div");
+            botonesCarrito.classList.add("botonesCarrito");
+
+                const buttonVaciar = document.createElement("button");
+                buttonVaciar.innerText = "Vaciar carrito";
+                buttonVaciar.classList.add("btn-vaciarCarrito");
+                buttonVaciar.addEventListener('click', () => {
+                    aCarrito = [];
+                    precioTotal = 0;
+                    contadorProductos = 0;
+                    divProductosCarrito.innerHTML = "";
+                    pPrecioTotal.innerText = "Total a pagar: $" + precioTotal;
+                    pCantProductos.innerText = "Cantidad de productos: " + contadorProductos;
+                    //console.log(aCarrito);
+                });
+                
+                const buttonComprar = document.createElement("button");
+                buttonComprar.innerText = "Reservar productos";
+                buttonComprar.classList.add("btn-compra");
+                buttonComprar.addEventListener('click', () => {
+                    // Ejecuta la funcion ralizar compra que muestra una modal con un mensaje de productos reservados
+                    // A futuro mostrará un formulario para realizar la compra directamente
+                    realizarCompra()
+                });
     
-    const h3Carrito = document.createElement("h3");
-    h3Carrito.innerText = "Mi Carrito";
-
-    const pPrecioTotal = document.createElement("p");
-    pPrecioTotal.setAttribute('id','pPrecioTotalModal');
-    pPrecioTotal.innerText = "Total a pagar: $" + precioTotal;
-
-    const pCantProductos = document.createElement("p");
-    pCantProductos.setAttribute('id','pCantProductosModal');
-    pCantProductos.innerText = "Cantidad de productos: " + contadorProductos;
-
-    /*Como mostramos la cantidad de productos totales si lo tenemos en un span*/
-
-    const divProductosCarrito = document.createElement("div");
-    divProductosCarrito.classList.add("productosCarrito");
-
-    const buttonVaciar = document.createElement("button");
-    buttonVaciar.innerText = "Vaciar carrito";
-    buttonVaciar.classList.add("btn-vaciarCarrito");
-    buttonVaciar.addEventListener('click', () => {
-        aCarrito = [];
-        precioTotal = 0;
-        contadorProductos = 0;
-        divProductosCarrito.innerHTML = "";
-        pPrecioTotal.innerText = "Total a pagar: $" + precioTotal;
-        pCantProductos.innerText = "Cantidad de productos: " + contadorProductos;
-        //console.log(aCarrito);
-    });
-    
-    const buttonComprar = document.createElement("button");
-    buttonComprar.innerText = "Reservar productos";
-    buttonComprar.classList.add("btn-compra");
-    buttonComprar.addEventListener('click', () => {
-        // Ejecuta la funcion ralizar compra que muestra una modal con un mensaje de productos reservados
-        // A futuro mostrará un formulario para realizar la compra directamente
-        realizarCompra()
-    });
-    
-    for (const producto of aCarrito) {
-        divProductosCarrito.append(producto.mostrarMiniProducto());
-    }
-
-    modalCarrito.append(aCerrar, h3Carrito, pPrecioTotal, pCantProductos, divProductosCarrito, buttonComprar, buttonVaciar);
+    totalesCarrito.append(pPrecioTotal, pCantProductos)
+    botonesCarrito.append(buttonComprar, buttonVaciar)
+    modalCarrito.append(aCerrar, h3Carrito, divProductosCarrito, totalesCarrito, botonesCarrito);
 
     // Traemos el div que esta al mismo nivel de la seccion de productos
     const sectionProductos = document.querySelector("#contenedorProductos");
