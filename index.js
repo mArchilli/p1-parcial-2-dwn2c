@@ -196,8 +196,6 @@ function eliminarDelCarrito(producto, indice){
     
     precioTotal -= producto.getPrecio();
     
-    console.log(indice);
-    console.log(aCarrito.length);
     for (let i=indice; i<aCarrito.length; i++) {
         aCarrito[i] = aCarrito[i+1];
     }
@@ -273,8 +271,10 @@ function verCarrito () {
 
             const divProductosCarrito = document.createElement("div");
             divProductosCarrito.classList.add("productosCarrito");
+
                 for (const producto of aCarrito) {
-                    divProductosCarrito.append(producto.mostrarMiniProducto());
+
+                        divProductosCarrito.append(producto.mostrarMiniProducto());
                 }
 
             const botonesCarrito = document.createElement("div");

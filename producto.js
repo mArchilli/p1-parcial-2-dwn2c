@@ -29,6 +29,7 @@ class producto {
         this.#categoria = categoria;
         this.#precio = precio;
         this.#descripcion = descripcion;
+        /*Creamos propiedad cantidad y dos metodos para agregar y restar*/
     }
 
     /**
@@ -279,7 +280,7 @@ class producto {
                     const productoId = this.#id;
                     console.log(productoId);
                     console.log(divMiniProducto.dataset.id);
-                    if(productoId != divMiniProducto.dataset.id) {
+                    if(productoId == divMiniProducto.dataset.id) {
                         for (let producto of aCarrito){
                             if (producto.#id == productoId){
                                 //console.log(producto);
@@ -288,9 +289,13 @@ class producto {
                             }
                         }
                     } else {
-                        cantProducto++;
-                        console.log(cantProducto);
-                        pCantProducto.innerText = cantProducto;
+                        for (let producto of aCarrito){
+                            if (producto.#id == productoId){
+                                //console.log(producto);
+                                agregarAlCarrito(producto);
+                                break;
+                            }
+                        }
                         /*Falta agregar el producto a aCarrito*/
                     }
                     
