@@ -256,7 +256,7 @@ function verCarrito () {
     /*Como mostramos la cantidad de productos totales si lo tenemos en un span*/
 
     const divProductosCarrito = document.createElement("div");
-    divProductosCarrito.classList.add('productosCarrito');
+    divProductosCarrito.classList.add("productosCarrito");
 
     const buttonVaciar = document.createElement("button");
     buttonVaciar.innerText = "Vaciar carrito";
