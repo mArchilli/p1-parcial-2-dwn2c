@@ -163,6 +163,26 @@ header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos 
     text-align: center;
     color: var(--bg-color-dark)
 }
+@media screen and (max-width: 568px) {
+    header button {
+        width: 70%;
+        margin: 4% 15%;
+    }
+    header #minicarrito .filtros button {
+        width: 40%;
+        margin: 4% 5%;
+    }
+}
+@media screen and (max-width: 450px) {
+    .detalleCarrito {
+        margin-top: 5%;
+        margin-bottom: 10%;
+    }
+    header button, header #minicarrito .filtros button {
+        width: 90%;
+        margin: 4% 5%;
+    }
+}
 header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contenedorProductos .card .btn-agregarCarrito:hover, .modalDetalle .datosProducto .detalleProducto .btn-agregarCarrito:hover, .modalCarrito .btn-vaciarCarrito:hover, .modalCarrito .btn-compra:hover {
     background: var(--primary-color-dark);
     color: var(--color-b);
@@ -325,6 +345,23 @@ header #minicarrito .filtros .btn-eliminar:hover {
     border: 1px solid var(--color-b);
     border-radius: 2%;
 }
+@media screen and (max-width: 568px) {
+    .modalCarrito {
+        width: 95%;
+        margin: 5% 2.5%;
+        height: auto;
+    }
+}
+@media screen and (max-width: 450px) {
+    .detalleCarrito {
+        margin-top: 5%;
+        margin-bottom: 10%;
+    }
+    header button, header #minicarrito .filtros button {
+        width: 90%;
+        margin: 4% 5%;
+    }
+}
 .datosProducto {
     width: 80%;
     margin: 5% 10%;
@@ -420,14 +457,41 @@ header #minicarrito .filtros .btn-eliminar:hover {
 	bottom: 0;
 	right: 0;
 }
+.totalesCarrito, .botonesCarrito {
+    width: 80%;
+    margin: 1% 1%;
+    height: auto;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+	text-align: center;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
 .productosCarrito div p {
     width: 35%;
     margin: 0 0 0 0;
 	text-align: center;
 }
+.totalesCarrito p {
+    width: 50%;
+    text-align: center !important;
+    color: var(--primary-color) !important;
+    font-size: 2em !important;
+    font-weight: bolder;
+}
+.botonesCarrito button {
+    width: 40%;
+    margin: 0 5% 0 5% !important;
+    text-align: center !important;
+}
 .productosCarrito div .masMenosProductos {
     width: 30%;
 }
+
 .productosCarrito div .masMenosProductos button{
     position: relative;
     background-color: var(--primary-color);
@@ -485,6 +549,40 @@ header #minicarrito .filtros .btn-eliminar:hover {
         font-size: 1.2em;
     }
 }
+@media screen and (max-width: 568px) {
+    .productosCarrito div {
+        flex-direction: row;
+        flex-wrap: wrap;
+        line-height: 1.5em;
+        margin-top: 5%;
+    }
+    .productosCarrito div p {
+        width: 90%;
+        margin: 0% 5% 3% 5%;
+    }
+    .productosCarrito div .masMenosProductos p {
+        margin: 0% 0% 0% 0% !important;
+    }
+    .productosCarrito div .masMenosProductos {
+        width: 90%;
+        margin: 0;
+    }
+    .totalesCarrito, .botonesCarrito {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        line-height: 1.5em;
+        margin-top: 5%;
+    }
+    .totalesCarrito p {
+        width: 90%;
+        margin: 3% 5%;
+    }
+    .botonesCarrito button {
+        width: 80%;
+        margin: 3% 10% !important;
+    }
+}
+
 /* Modal Detalle Producto */
 /** Footer */
 footer {
