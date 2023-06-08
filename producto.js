@@ -12,6 +12,7 @@ class producto {
      * @param {string} categoria - La categoría del producto.
      * @param {number} precio - El precio del producto.
      * @param {string} descripcion - La descripción del producto.
+     * @param {number} cantidad - Es la única propiedad públic, la usamos para acumular la cantidad de productos iguales que tenemos en el carrito de compras.
     */
     #nombre;
     #imagen;
@@ -118,34 +119,28 @@ class producto {
     */
     mostrarProducto() {
         let articleProducto = document.createElement("article");
-        articleProducto.classList.add("card");
-        articleProducto.dataset.id = this.#id; // con .dataset creo el atributo data-id en la card, para que tome el id del producto y se lo asigne a la card. De esta forma puedo identificar el producto al momento de agregarlo al carrito
-
+            articleProducto.classList.add("card");
+            articleProducto.dataset.id = this.#id; // con .dataset creo el atributo data-id en la card, para que tome el id del producto y se lo asigne a la card. De esta forma puedo identificar el producto al momento de agregarlo al carrito
             let h3Nombre = document.createElement("h3");
             h3Nombre.innerText = `${this.#nombre}`;
-
-                let imgImagen = document.createElement("img");
+            let imgImagen = document.createElement("img");
                 imgImagen.setAttribute("src", this.#imagen);
                 imgImagen.setAttribute("alt", this.#altImagen);
-
-                let pId = document.createElement("p");
+            let pId = document.createElement("p");
                 pId.innerText = `Codigo: ${this.#id}`;
-
-                let pCategoria = document.createElement("p");
+            let pCategoria = document.createElement("p");
                 pCategoria.innerText = `Categoria: ${this.#categoria}`;
-
-                let pPrecio = document.createElement("p");
+            let pPrecio = document.createElement("p");
                 pPrecio.innerText = `Precio: $${this.#precio}.-`;
-
-                // La descripción la voy a mostrar en el detalle
-                //let pDescripcion = document.createElement("p");
+            // La descripción la mostramos en el detalle
+            //let pDescripcion = document.createElement("p");
                 //pDescripcion.innerText = `Descripcion: ${this.#descripcion}`;
 
-                let buttonAgregarCarrito = document.createElement ("button");
+            // Botón agregar - card producto
+            let buttonAgregarCarrito = document.createElement ("button");
                 buttonAgregarCarrito.innerText = `Agregar al carrito`;
                 buttonAgregarCarrito.classList.add("btn-agregarCarrito");
                 buttonAgregarCarrito.addEventListener('click', (e) => {
-                    //console.log(e.target.parentNode); 
                     const button = e.target; // con el .target se identifica que boton del html dispara la acción 
                     const articleProducto = button.parentNode; // con .parentNode hago referencia al article que esta identificado con el id del producto.
                     const productoId = articleProducto.dataset.id;
@@ -157,85 +152,79 @@ class producto {
                         }
                     }
                 });
-
-                let buttonVerMas = document.createElement("button");
+            // Botón ver más - card producto
+            let buttonVerMas = document.createElement("button");
                 buttonVerMas.innerText = `Ver más`;
                 buttonVerMas.classList.add("btn-verDetalle");
                 buttonVerMas.addEventListener('click', () => {
-                        // Ventana modal producto
-                        let modalDetalle = document.querySelector("#modalProducto");
-                        let modalCarrito = document.querySelector("#modalCarrito");
-                        if(modalDetalle){
-                            modalDetalle.remove();
-                        } 
-                        if(modalCarrito){
-                            modalCarrito.remove();
-                        }
-
-                        modalDetalle = document.createElement("div");
-                        modalDetalle.classList.add("modalDetalle"); 
-                        modalDetalle.setAttribute("id", "modalProducto");
-                        modalDetalle.dataset.id = this.#id;
-
-                            let aCerrar = document.createElement("a");
+                    // Antes de crear el html de la modal, limpio la vista de otras modales que pueden estar accionadas
+                    let modalDetalle = document.querySelector("#modalProducto");
+                    let modalCarrito = document.querySelector("#modalCarrito");
+                    let modalCompra = document.querySelector("#modalCompra");
+                    if(modalDetalle){
+                        modalDetalle.remove();
+                    } 
+                    if(modalCarrito){
+                        modalCarrito.remove();
+                    }
+                    if(modalCompra){
+                        modalCompra.remove();
+                    }
+                    // Estructura html de la modal con el detalle del producto
+                    modalDetalle = document.createElement("div");
+                    modalDetalle.classList.add("modalDetalle"); 
+                    modalDetalle.setAttribute("id", "modalProducto");
+                    modalDetalle.dataset.id = this.#id;
+                        let aCerrar = document.createElement("a");
                             aCerrar.setAttribute("href", "javascript:void(0)");
                             aCerrar.innerText = "X";
                             aCerrar.addEventListener('click', () => {
                                 let cerrar = document.querySelector("#modalProducto");
-                                cerrar.remove();
+                                    cerrar.remove();
                             });
-                            modalDetalle.appendChild(aCerrar);
-
-                            let h3Nombre = document.createElement("h3");
+                        modalDetalle.appendChild(aCerrar);
+                        let h3Nombre = document.createElement("h3");
                             h3Nombre.innerText = `${this.#nombre}`;
-
-                            const datosProducto = document.createElement("div");
+                        // Div que contiene toda la información del producto
+                        let datosProducto = document.createElement("div");
                             datosProducto.classList.add("datosProducto"); 
-                                
-                                let imgImagen = document.createElement("img");
+                            let imgImagen = document.createElement("img");
                                 imgImagen.setAttribute("src", this.#imagen);
                                 imgImagen.setAttribute("alt", this.#altImagen);
-
-                                const detalleProducto = document.createElement("div");
+                            // Div que contiene la información en texto del producto
+                            let detalleProducto = document.createElement("div");
                                 detalleProducto.classList.add("detalleProducto"); 
-            
-                                    let pId = document.createElement("p");
+                                let pId = document.createElement("p");
                                     pId.innerText = `Codigo: ${this.#id}`;
-                    
-                                    let pCategoria = document.createElement("p");
+                                let pCategoria = document.createElement("p");
                                     pCategoria.innerText = `Categoria: ${this.#categoria}`;
-                    
-                                    let pPrecio = document.createElement("p");
+                                let pPrecio = document.createElement("p");
                                     pPrecio.innerText = `Precio: $${this.#precio}.-`;
-                    
-                                    let pDescripcion = document.createElement("p");
+                                let pDescripcion = document.createElement("p");
                                     pDescripcion.innerText = `Descripcion: ${this.#descripcion}`;
-
-                                    let buttonAgregarCarrito = document.createElement ("button");
-                                    buttonAgregarCarrito.innerText = `Agregar al carrito`;
-                                    buttonAgregarCarrito.classList.add("btn-agregarCarrito");
-                                    buttonAgregarCarrito.addEventListener('click', () => {
-                                        const productoId = this.#id;
-                                        for (let producto of aCatalogo){
-                                            if (producto.#id == productoId){
-                                                //console.log(producto);
-                                                agregarAlCarrito(producto);
-                                                break;
-                                            }
+                            // Botón agregar - detalle producto
+                            let buttonAgregarCarrito = document.createElement ("button");
+                                buttonAgregarCarrito.innerText = `Agregar al carrito`;
+                                buttonAgregarCarrito.classList.add("btn-agregarCarrito");
+                                buttonAgregarCarrito.addEventListener('click', () => {
+                                    const productoId = this.#id;
+                                    for (let producto of aCatalogo){
+                                        if (producto.#id == productoId){
+                                            agregarAlCarrito(producto);
+                                            break;
                                         }
-                                    });
-                        // Los divs que cree son por una decisión de diseño
-                        detalleProducto.append(pId, pCategoria, pPrecio, pDescripcion, buttonAgregarCarrito);
-                        datosProducto.append(imgImagen, detalleProducto);
-                        modalDetalle.append(aCerrar, h3Nombre, datosProducto);
-
-                        // Traemos el div que esta al mismo nivel de la seccion de productos
-                        const sectionProductos = document.querySelector("#contenedorProductos");
+                                    }
+                                });
+                    // Apendeamos estructura a la modal
+                    detalleProducto.append(pId, pCategoria, pPrecio, pDescripcion, buttonAgregarCarrito);
+                    datosProducto.append(imgImagen, detalleProducto);
+                    modalDetalle.append(aCerrar, h3Nombre, datosProducto);
+                    // Traemos el div que esta al mismo nivel de la seccion de productos
+                    let sectionProductos = document.querySelector("#contenedorProductos");
                         sectionProductos.parentNode.appendChild(modalDetalle);
                         return sectionProductos;
-                    }
-                );
-
+                });
+        // Apendeamos estructura al article del producto
         articleProducto.append(h3Nombre, imgImagen, pId, pCategoria, pPrecio, buttonAgregarCarrito, buttonVerMas);
         return articleProducto;
     }
@@ -247,7 +236,7 @@ class producto {
      * <div data-id="valor igual al producto">
      *      <h3>${this.#nombre}</h3>
      *      <p>${this.#nombre}</p>
-     *      <p>${this.#precio}</p>
+     *      <p>Subtotal: ${this.#precio}</p>
      *      <div class="masMenosProductos">
      *          <button> + </button>
      *          <p>Cantidad productos con el mismo id</p>
@@ -256,25 +245,20 @@ class producto {
      * </div>
     */
     mostrarMiniProducto() {
-        // Creamos el elemento div que contendrá el mini producto y las etiquetas que organizan la información
-        const divMiniProducto = document.createElement("div");
-        divMiniProducto.dataset.id = this.#id;
-
+        // Div que contiene la información mínima del producto
+        let divMiniProducto = document.createElement("div");
+            divMiniProducto.dataset.id = this.#id;
             let pNombreMiniProducto = document.createElement("p");
-            pNombreMiniProducto.innerText = `${this.#nombre}`;
-
+                pNombreMiniProducto.innerText = `${this.#nombre}`;
             let pPrecioMiniProducto = document.createElement("p");
-            pPrecioMiniProducto.innerText = `Precio por unidad: $${this.#precio}.-`;
-
-            const masMenosProductos = document.createElement("div");
-            masMenosProductos.classList.add("masMenosProductos")
-
+                pPrecioMiniProducto.innerText = `Subtotal: $${this.#precio}.-`;
+            let masMenosProductos = document.createElement("div");
+                masMenosProductos.classList.add("masMenosProductos")
             let pCantProducto = document.createElement("p");
-            pCantProducto.classList.add("pCantidadProducto");
-
-            pCantProducto.innerText = `${this.cantidad}`;
-
-        let buttonAgregarCarrito = document.createElement ("button");
+                pCantProducto.classList.add("pCantidadProducto");
+                pCantProducto.innerText = `${this.cantidad}`;
+            // Mini botón agregar - carrito
+            let buttonAgregarCarrito = document.createElement ("button");
                 buttonAgregarCarrito.innerText = ` + `;
                 buttonAgregarCarrito.classList.add("btn-agregarCarrito");
                 buttonAgregarCarrito.addEventListener('click', () => {
@@ -282,7 +266,6 @@ class producto {
                     if(productoId == divMiniProducto.dataset.id) {
                         for (let producto of aCarrito){
                             if (producto.#id == productoId){
-                                //console.log(producto);
                                 agregarAlCarrito(producto);
                                 pCantProducto.innerText = `${this.cantidad}`;
                                 break;
@@ -290,17 +273,12 @@ class producto {
                         }
                     }
                 });
-
+            // Mini botón eliminar - carrito
             let buttonEliminarDelCarrito = document.createElement ("button");
-            buttonEliminarDelCarrito.innerText = ` - `;
-            buttonEliminarDelCarrito.classList.add("btn-eliminarCarrito");
-            buttonEliminarDelCarrito.addEventListener('click', () => {
+                buttonEliminarDelCarrito.innerText = ` - `;
+                buttonEliminarDelCarrito.classList.add("btn-eliminarCarrito");
+                buttonEliminarDelCarrito.addEventListener('click', () => {
                 const productoId = this.#id;
-                /*if (producto.#id == productoId){
-                        console.log(producto);
-                        eliminarDelCarrito(producto);
-                        break;
-                    }*/
                 for(let i=0; i<aCarrito.length; i++){
                     if(aCarrito[i].#id == productoId) {
                         eliminarDelCarrito(aCarrito[i]);
@@ -309,11 +287,9 @@ class producto {
                     }
                 }
             });
-
-        /*Como mostramos la cantidad de un mismo producto*/
+        // Apendeamos estructura a la modal
         masMenosProductos.append(buttonAgregarCarrito, pCantProducto, buttonEliminarDelCarrito)
         divMiniProducto.append(pNombreMiniProducto, pPrecioMiniProducto, masMenosProductos);
-
         return divMiniProducto;
     }
 }
