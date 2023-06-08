@@ -21,7 +21,7 @@ class producto {
     #precio;
     #descripcion;
 
-    constructor(nombre, imagen, altImagen, id, categoria, precio, descripcion) {
+    constructor(nombre, imagen, altImagen, id, categoria, precio, descripcion, cantidad) {
         this.#nombre = nombre;
         this.#imagen = imagen;
         this.#altImagen = altImagen;
@@ -29,7 +29,8 @@ class producto {
         this.#categoria = categoria;
         this.#precio = precio;
         this.#descripcion = descripcion;
-        /*Creamos propiedad cantidad y dos metodos para agregar y restar*/
+        this.cantidad = cantidad;
+
     }
 
     /**
@@ -269,36 +270,25 @@ class producto {
             masMenosProductos.classList.add("masMenosProductos")
 
             let pCantProducto = document.createElement("p");
-            let cantProducto = 1;
+            pCantProducto.classList.add("pCantidadProducto");
 
-            pCantProducto.innerText = cantProducto;
+            pCantProducto.innerText = `${this.cantidad}`;
 
         let buttonAgregarCarrito = document.createElement ("button");
                 buttonAgregarCarrito.innerText = ` + `;
                 buttonAgregarCarrito.classList.add("btn-agregarCarrito");
                 buttonAgregarCarrito.addEventListener('click', () => {
                     const productoId = this.#id;
-                    console.log(productoId);
-                    console.log(divMiniProducto.dataset.id);
                     if(productoId == divMiniProducto.dataset.id) {
                         for (let producto of aCarrito){
                             if (producto.#id == productoId){
                                 //console.log(producto);
                                 agregarAlCarrito(producto);
+                                pCantProducto.innerText = `${this.cantidad}`;
                                 break;
                             }
                         }
-                    } else {
-                        for (let producto of aCarrito){
-                            if (producto.#id == productoId){
-                                //console.log(producto);
-                                agregarAlCarrito(producto);
-                                break;
-                            }
-                        }
-                        /*Falta agregar el producto a aCarrito*/
                     }
-                    
                 });
 
             let buttonEliminarDelCarrito = document.createElement ("button");
@@ -313,7 +303,8 @@ class producto {
                     }*/
                 for(let i=0; i<aCarrito.length; i++){
                     if(aCarrito[i].#id == productoId) {
-                        eliminarDelCarrito(aCarrito[i], i);
+                        eliminarDelCarrito(aCarrito[i]);
+                        pCantProducto.innerText = `${this.cantidad}`;
                         break;
                     }
                 }

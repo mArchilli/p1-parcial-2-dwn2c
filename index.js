@@ -170,8 +170,32 @@ function agregarAlCarrito(producto){
     let precioFinalModal = document.querySelector("#pPrecioTotalModal");
 
     precioTotal += producto.getPrecio();
-    aCarrito.push(producto);
+
+    //let productoExiste = aCarrito.find((p) => p.id === producto.getId());
+    console.log(producto.getId());
+
+    if (aCarrito.length == 0) {
+        producto.cantidad = 1;
+        aCarrito.push(producto);
+      } else {
+        let productoExistente = false;
+        for (let i = 0; i < aCarrito.length; i++) {
+          if (aCarrito[i].getId() == producto.getId()) {
+            aCarrito[i].cantidad += 1;
+            productoExistente = true;
+            break;
+          }
+        }
+      
+        if (!productoExistente) {
+          producto.cantidad = 1;
+          aCarrito.push(producto);
+        }
+      }
+    
+
     contadorProductos++;
+    
 
     if(itemCarritoModal || precioFinalModal != null){
         itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
@@ -187,7 +211,7 @@ function agregarAlCarrito(producto){
  * @param {Producto} producto - El producto a eliminar.
  * @param {number} indice - El índice del producto en el carrito.
 */
-function eliminarDelCarrito(producto, indice){
+function eliminarDelCarrito(producto){
     let itemCarrito = document.querySelector("#itemsCarrito");
     let precioFinal = document.querySelector("#totalPagar");
 
@@ -195,12 +219,13 @@ function eliminarDelCarrito(producto, indice){
     let precioFinalModal = document.querySelector("#pPrecioTotalModal");
     
     precioTotal -= producto.getPrecio();
-    
-    for (let i=indice; i<aCarrito.length; i++) {
-        aCarrito[i] = aCarrito[i+1];
+
+    for (let i = 0; i < aCarrito.length; i++) {
+        if (aCarrito[i].getId() == producto.getId()) {
+            aCarrito[i].cantidad -= 1;
+            break;
+        }
     }
-    contadorProductos--;
-    aCarrito.pop();
 
     if(itemCarritoModal || precioFinalModal != null){
         itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
