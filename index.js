@@ -8,7 +8,7 @@
 /** 
  * Array de objetos que representa productos.
  * Cada objeto contiene las propiedades: id, nombre, descripcion, precio, imagen, categoría.
- */
+
 let aProductos = [
     {
         id: 1,
@@ -65,23 +65,33 @@ let aProductos = [
         altImagen: 'Soy la descripcion de la imagen del producto 6',
     },
 ];
-
+ */
 /** 
  * aCatalogo: almacenará los productos que genero con la clase producto, en un catalago.
  * aCarrito: Lo uso desde la línea 152 para almacenar los productos que el cliente desea agregar a su carrito de compras
-*/
-let aCatalogo = [];
+ * 
+
+let aCatalogo = [];*/
+let aCatalogo;
+/**
+ * Realiza una solicitud HTTP GET utilizando el método fetch para obtener un archivo JSON y lo convierte en un objeto JavaScript.
+ * @param {string} url - La URL del archivo JSON a cargar.
+ * @returns {Promise} - Una promesa que se resuelve con el contenido del archivo JSON como un objeto JavaScript.
+ */
+fetch("productos.json").then(response => response.json()).then(json => {
+    let aCatalogo = json.aProductos;
+})
 let aCarrito = [];
 let precioTotal = 0;
 let contadorProductos = 0;
 
 /** 
- * Busco la etiqueta section del HTML con el ID "contenedorProductos", porque es donde quiero mostrar la estructura que creo con DOM para cada articulo de aCatalogo.
+ * Mostramos el catalogo en l aprimer vista del sitio
+ * Buscamos la etiqueta section del HTML con el ID "contenedorProductos", section donde mostraremos la estructura creada con DOM para cada articulo de aCatalogo.
 */
 let sectionPrincipal = document.getElementById("contenedorProductos");
-
 /** 
- * Con un for of, se recorre cada objeto en aProductos.
+ * Con un for, se recorre cada objeto en aProductos.
  * Se crea un nuevo objeto "producto" utilizando la clase "producto" y se agrega al array "aCatalogo".
 */
 for(let i = 0; i < aProductos.length; i++){
@@ -96,7 +106,6 @@ for(let i = 0; i < aProductos.length; i++){
         );
     aCatalogo.push(nuevoProducto);
 }
-
 /** 
  * Con un for of, se recorre cada objeto en aProductos.
  * Se agrega el artículo del producto al elemento del DOM con el ID "contenedorProductos".
@@ -165,43 +174,33 @@ function filtrarPorCategoria(categoriaElegida) {
 function agregarAlCarrito(producto){
     let itemCarrito = document.querySelector("#itemsCarrito");
     let precioFinal = document.querySelector("#totalPagar");
-
     let itemCarritoModal = document.querySelector("#pCantProductosModal");
     let precioFinalModal = document.querySelector("#pPrecioTotalModal");
 
     precioTotal += producto.getPrecio();
-
-    //let productoExiste = aCarrito.find((p) => p.id === producto.getId());
-    console.log(producto.getId());
-
     if (aCarrito.length == 0) {
         producto.cantidad = 1;
         aCarrito.push(producto);
-      } else {
+    } else {
         let productoExistente = false;
         for (let i = 0; i < aCarrito.length; i++) {
-          if (aCarrito[i].getId() == producto.getId()) {
-            aCarrito[i].cantidad += 1;
-            productoExistente = true;
-            break;
-          }
+            if (aCarrito[i].getId() == producto.getId()) {
+                aCarrito[i].cantidad += 1;
+                productoExistente = true;
+                break;
+            }
         }
-      
         if (!productoExistente) {
-          producto.cantidad = 1;
-          aCarrito.push(producto);
-        }
-      }
-    
+            producto.cantidad = 1;
+            aCarrito.push(producto);
+        }
+    }
 
     contadorProductos++;
-    
-
     if(itemCarritoModal || precioFinalModal != null){
         itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
         precioFinalModal.innerText = "Total a pagar: $" + precioTotal;
     }
-    
     itemCarrito.innerText = contadorProductos;
     precioFinal.innerText = precioTotal;
 }
@@ -214,12 +213,10 @@ function agregarAlCarrito(producto){
 function eliminarDelCarrito(producto){
     let itemCarrito = document.querySelector("#itemsCarrito");
     let precioFinal = document.querySelector("#totalPagar");
-
     let itemCarritoModal = document.querySelector("#pCantProductosModal");
     let precioFinalModal = document.querySelector("#pPrecioTotalModal");
-    
-    precioTotal -= producto.getPrecio();
 
+    precioTotal -= producto.getPrecio();
     for (let i = 0; i < aCarrito.length; i++) {
         if (aCarrito[i].getId() == producto.getId()) {
             aCarrito[i].cantidad -= 1;
@@ -227,11 +224,11 @@ function eliminarDelCarrito(producto){
         }
     }
 
+    contadorProductos--;
     if(itemCarritoModal || precioFinalModal != null){
         itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
         precioFinalModal.innerText = "Total a pagar: $" + precioTotal;
     }
-    
     itemCarrito.innerText = contadorProductos;
     precioFinal.innerText = precioTotal;
     console.log(aCarrito);
