@@ -5,10 +5,6 @@
  * SANCHEZ LIPORACE, ANDREA
 */
 
-/** 
- * Array de objetos que representa productos.
- * Cada objeto contiene las propiedades: id, nombre, descripcion, precio, imagen, categoría.
-
 let aProductos = [
     {
         id: 1,
@@ -65,22 +61,10 @@ let aProductos = [
         altImagen: 'Soy la descripcion de la imagen del producto 6',
     },
 ];
- */
-/** 
- * aCatalogo: almacenará los productos que genero con la clase producto, en un catalago.
- * aCarrito: Lo uso desde la línea 152 para almacenar los productos que el cliente desea agregar a su carrito de compras
- * 
 
-let aCatalogo = [];*/
-let aCatalogo;
-/**
- * Realiza una solicitud HTTP GET utilizando el método fetch para obtener un archivo JSON y lo convierte en un objeto JavaScript.
- * @param {string} url - La URL del archivo JSON a cargar.
- * @returns {Promise} - Una promesa que se resuelve con el contenido del archivo JSON como un objeto JavaScript.
- */
-fetch("productos.json").then(response => response.json()).then(json => {
-    let aCatalogo = json.aProductos;
-})
+
+let aCatalogo = [];
+
 let aCarrito = [];
 let precioTotal = 0;
 let contadorProductos = 0;
@@ -210,27 +194,34 @@ function agregarAlCarrito(producto){
  * @param {Producto} producto - El producto a eliminar.
  * @param {number} indice - El índice del producto en el carrito.
 */
-function eliminarDelCarrito(producto){
+function eliminarDelCarrito(producto, contenedorProducto, indice){
     let itemCarrito = document.querySelector("#itemsCarrito");
     let precioFinal = document.querySelector("#totalPagar");
     let itemCarritoModal = document.querySelector("#pCantProductosModal");
     let precioFinalModal = document.querySelector("#pPrecioTotalModal");
 
-    precioTotal -= producto.getPrecio();
-    for (let i = 0; i < aCarrito.length; i++) {
-        if (aCarrito[i].getId() == producto.getId()) {
-            aCarrito[i].cantidad -= 1;
-            break;
+    if(producto.cantidad > 1){
+        precioTotal -= producto.getPrecio();
+        for (let i = 0; i < aCarrito.length; i++) {
+            if (aCarrito[i].getId() == producto.getId()) {
+                aCarrito[i].cantidad -= 1;
+                break;
+            }
         }
+    } else {
+        precioTotal -= producto.getPrecio();
+        aCarrito.splice(indice, 1);
+        contenedorProducto.remove();
     }
 
     contadorProductos--;
-    if(itemCarritoModal || precioFinalModal != null){
-        itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
-        precioFinalModal.innerText = "Total a pagar: $" + precioTotal;
-    }
-    itemCarrito.innerText = contadorProductos;
-    precioFinal.innerText = precioTotal;
+        if(itemCarritoModal || precioFinalModal != null){
+            itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
+            precioFinalModal.innerText = "Total a pagar: $" + precioTotal;
+        }
+        itemCarrito.innerText = contadorProductos;
+        precioFinal.innerText = precioTotal;
+    
     console.log(aCarrito);
 }
 

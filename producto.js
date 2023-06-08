@@ -277,11 +277,12 @@ class producto {
             let buttonEliminarDelCarrito = document.createElement ("button");
                 buttonEliminarDelCarrito.innerText = ` - `;
                 buttonEliminarDelCarrito.classList.add("btn-eliminarCarrito");
-                buttonEliminarDelCarrito.addEventListener('click', () => {
+                buttonEliminarDelCarrito.addEventListener('click', (e) => {
+                    let contenedorProducto = e.target.parentNode.parentNode;
                 const productoId = this.#id;
                 for(let i=0; i<aCarrito.length; i++){
                     if(aCarrito[i].#id == productoId) {
-                        eliminarDelCarrito(aCarrito[i]);
+                        eliminarDelCarrito(aCarrito[i], contenedorProducto, i);
                         pCantProducto.innerText = `${this.cantidad}`;
                         break;
                     }
