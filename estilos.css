@@ -327,7 +327,7 @@ header #minicarrito .filtros .btn-eliminar:hover {
 /** Modales */
 /* Modal Carrito */
 /* Modal Detalle Producto */
-.modalDetalle, .modalCarrito, .modalCompra {
+.modalDetalle, .modalCarrito, .modalCompra, .modalCompraRealizada {
 	position: fixed;
 	z-index: 2;
     width: 75%;
@@ -386,7 +386,7 @@ header #minicarrito .filtros .btn-eliminar:hover {
         border-radius: 2%;
     }
 }
-.modalDetalle a, .modalCarrito a, .modalCompra a {
+.modalDetalle a, .modalCarrito a, .modalCompra a, .modalCompraRealizada a {
     position: absolute;
     z-index: 1;
     display: flex;
@@ -406,7 +406,7 @@ header #minicarrito .filtros .btn-eliminar:hover {
     font-weight: bold;
     border: 1px solid var(--color-b);
 }
-.modalDetalle a:hover, .modalCarrito a:hover, .modalCompra a:hover {
+.modalDetalle a:hover, .modalCarrito a:hover, .modalCompra a:hover, .modalCompraRealizada a:hover {
 	background-color: var(--primary-color);
 	color: var(--bg-color-dark);
 }
@@ -528,24 +528,24 @@ header #minicarrito .filtros .btn-eliminar:hover {
         height: 60%;
     }
 }
-.modalDetalle h3, .modalCarrito h3, .modalCompra h3 {
+.modalDetalle h3, .modalCarrito h3, .modalCompra h3, .modalCompraRealizada h3 {
     width: 100%;
     font-size: 3em;
     margin: 3em 0 0
 }
 @media screen and (max-width: 750px) {
-    .modalDetalle h3, .modalCarrito h3, .modalCompra h3 {
+    .modalDetalle h3, .modalCarrito h3, .modalCompra h3, .modalCompraRealizada h3{
         margin: 2em 0 0
     }
 }
-.modalDetalle p, .modalCarrito p, .modalCompra p {
+.modalDetalle p, .modalCarrito p, .modalCompra p, .modalCompraRealizada p {
 	margin: 0 0 1em 0;
 	text-align: left;
 	color: var(--color-b);
     font-size: 1.5em;
 }
 @media screen and (max-width: 750px) {
-    .modalDetalle p, .modalCarrito p, .modalCompra p {
+    .modalDetalle p, .modalCarrito p, .modalCompra p, .modalCompraRealizada p  {
         font-size: 1.2em;
     }
 }

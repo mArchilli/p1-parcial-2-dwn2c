@@ -307,12 +307,13 @@ function verCarrito () {
                 });
                 
                 const buttonComprar = document.createElement("button");
-                buttonComprar.innerText = "Reservar productos";
+                buttonComprar.innerText = "Iniciar Compra";
                 buttonComprar.classList.add("btn-compra");
                 buttonComprar.addEventListener('click', () => {
                     // Ejecuta la funcion ralizar compra que muestra una modal con un mensaje de productos reservados
                     // A futuro mostrará un formulario para realizar la compra directamente
-                    realizarCompra()
+                    console.log("entre al boton comprar");
+                    realizarCompra();
                 });
     
     totalesCarrito.append(pPrecioTotal, pCantProductos)
@@ -330,6 +331,7 @@ function verCarrito () {
  * @returns {Element} Una ventana modal con un mensaje de reserva exitosa, con el form de compra desarrollado, mostraría el form de compra
 */
 function realizarCompra() {
+    console.log("entre a la funcion realizarCompra");
     let modalDetalle = document.querySelector("#modalProducto");
     let modalCarrito = document.querySelector("#modalCarrito");
 
@@ -342,26 +344,85 @@ function realizarCompra() {
     }
 
     let modalCompra = document.createElement("div");
-    modalCompra.classList.add("modalCompra");
-    modalCompra.setAttribute("id", "modalCompra");
+        modalCompra.classList.add("modalCompra");
+        modalCompra.setAttribute("id", "modalCompra");
 
-    const aCerrar = document.createElement("a");
-    aCerrar.setAttribute("href", "javascript:void(0)");
-    aCerrar.innerText = "X";
-    aCerrar.addEventListener('click', () => {
-        let cerrar = document.querySelector("#modalCompra");
-        cerrar.remove();
-    });
+    let aCerrar = document.createElement("a");
+        aCerrar.setAttribute("href", "javascript:void(0)");
+        aCerrar.innerText = "X";
+        aCerrar.addEventListener('click', () => {
+            let cerrar = document.querySelector("#modalCompra");
+            cerrar.remove();
+        });
 
-    const h3Compra = document.createElement("h3");
-    h3Compra.innerText = "Gracias por tu reserva";
+    let h3Compra = document.createElement("h3");
+    h3Compra.innerText = "Finalizar compra";
 
-    const pCompra1 = document.createElement("p");
-    pCompra1.innerText = "La reserva de tus productos se realizó con éxito";
+    let pCompra1 = document.createElement("p");
+    pCompra1.innerText = "Completá el siguiente formulario con los tus datos y con los datos del medio de pago que utilizarás";
 
-    const pCompra2 = document.createElement("p");
-    pCompra2.innerText = "Para finalizar tu compra envianos un mail con el n° de reserva a la casilla: archilli-sanchezliporace@programacion1.com";
+    //let formCompra = document.createElement("form");
 
+    let buttonComprar = document.createElement("button");
+        buttonComprar.innerText = "Comprar";
+        buttonComprar.classList.add("btn-compra");
+        buttonComprar.addEventListener('click', () => {
+            // Ejecuta la funcion ralizar compra que muestra una modal con un mensaje de productos reservados
+            // A futuro mostrará un formulario para realizar la compra directamente
+            console.log("entre al boton compraRealizada");
+            compraRealizada();
+
+        });
+
+    modalCompra.append(aCerrar, h3Compra, pCompra1, buttonComprar);
     // Traemos el div que esta al mismo nivel de la seccion de productos
     // No termino de darme cuenta como crear un hijo de la modal carrito
+    let sectionProductos = document.querySelector("#contenedorProductos");
+        sectionProductos.parentNode.appendChild(modalCompra);
+    return sectionProductos;
+}
+
+function compraRealizada(){
+    console.log("entre a la funcion compra realizada");
+    let modalDetalle = document.querySelector("#modalProducto");
+    let modalCarrito = document.querySelector("#modalCarrito");
+    let modalCompra = document.querySelector("#modalCompra");
+    if(modalDetalle){
+        modalDetalle.remove();
+    }
+
+    if (modalCarrito) {
+        modalCarrito.remove();
+    }
+    if (modalCompra) {
+        modalCompra.remove();
+    }
+
+    let modalCompraRealizada = document.createElement("div");
+    modalCompraRealizada.classList.add("modalCompraRealizada");
+    modalCompraRealizada.setAttribute("id", "modalCompraRealizada");
+
+    let aCerrar = document.createElement("a");
+        aCerrar.setAttribute("href", "javascript:void(0)");
+        aCerrar.innerText = "X";
+        aCerrar.addEventListener('click', () => {
+            let cerrar = document.querySelector("#modalCompraRealizada");
+            cerrar.remove();
+        });
+
+    let h3CompraRealizada = document.createElement("h3");
+    h3CompraRealizada.innerText = "Compra Exitosa";
+
+    let pCompraRealizada1 = document.createElement("p");
+    pCompraRealizada1.innerText = "Tu transacción se realizó con éxito";
+
+    let pCompraRealizada2 = document.createElement("p");
+    pCompraRealizada2.innerText = "¡¡Gracias por elegirnos!!";
+
+    modalCompraRealizada.append(aCerrar, h3CompraRealizada, pCompraRealizada1, pCompraRealizada2);
+    // Traemos el div que esta al mismo nivel de la seccion de productos
+    // No termino de darme cuenta como crear un hijo de la modal carrito
+    let sectionProductos = document.querySelector("#contenedorProductos");
+        sectionProductos.parentNode.appendChild(modalCompraRealizada);
+    return sectionProductos;
 }
