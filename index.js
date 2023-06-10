@@ -312,7 +312,6 @@ function verCarrito () {
                 buttonComprar.addEventListener('click', () => {
                     // Ejecuta la funcion ralizar compra que muestra una modal con un mensaje de productos reservados
                     // A futuro mostrará un formulario para realizar la compra directamente
-                    console.log("entre al boton comprar");
                     realizarCompra();
                 });
     
@@ -331,7 +330,6 @@ function verCarrito () {
  * @returns {Element} Una ventana modal con un mensaje de reserva exitosa, con el form de compra desarrollado, mostraría el form de compra
 */
 function realizarCompra() {
-    console.log("entre a la funcion realizarCompra");
     let modalDetalle = document.querySelector("#modalProducto");
     let modalCarrito = document.querySelector("#modalCarrito");
 
@@ -343,7 +341,8 @@ function realizarCompra() {
         modalCarrito.remove();
     }
 
-    let modalCompra = document.createElement("div");
+    if(aCarrito.length > 0){
+        let modalCompra = document.createElement("div");
         modalCompra.classList.add("modalCompra");
         modalCompra.setAttribute("id", "modalCompra");
 
@@ -361,25 +360,142 @@ function realizarCompra() {
     let pCompra1 = document.createElement("p");
     pCompra1.innerText = "Completá el siguiente formulario con los tus datos y con los datos del medio de pago que utilizarás";
 
-    //let formCompra = document.createElement("form");
+    let formCompra = document.createElement("form");
+
+    let fieldsetCliente = document.createElement("fieldset");
+    
+    let spanNombreCompleto = document.createElement("span");
+    spanNombreCompleto.innerText = "Nombre completo";
+
+    let inputNombreCompleto = document.createElement("input");
+    inputNombreCompleto.setAttribute("type", "text");
+    inputNombreCompleto.setAttribute("placeholder", "Ingrese su nombre y apellido");
+    inputNombreCompleto.setAttribute("required", "true");
+
+    let spanDireccion = document.createElement("span");
+    spanDireccion.innerText = "Direccion completa";
+
+    let inputDireccion = document.createElement("input");
+    inputDireccion.setAttribute("type", "text");
+    inputDireccion.setAttribute("placeholder", "Ingrese la direccion de entrega");
+    inputDireccion.setAttribute("required", "true");
+
+    let spanCodigoPostal = document.createElement("span");
+    spanCodigoPostal.innerText = "Codigo postal";
+    
+    let inputCodigoPostal = document.createElement("input");
+    inputCodigoPostal.setAttribute("type", "number");
+    inputCodigoPostal.setAttribute("placeholder", "Ingrese su codigo postal");
+    inputCodigoPostal.setAttribute("required", "true");  
+    inputCodigoPostal.setAttribute("minlength", 4);
+    inputCodigoPostal.setAttribute("maxlength", 4);
+
+    fieldsetCliente.append(spanNombreCompleto, inputNombreCompleto, spanDireccion, inputDireccion, spanCodigoPostal, inputCodigoPostal);
+
+    let fieldsetMetodoPago = document.createElement("fieldset");
+
+    let legendMetodoPago = document.createElement("legend");
+    legendMetodoPago.innerText = "Metodo de pago: ";
+
+    let inputTarjetaDebito = document.createElement("input");
+    inputTarjetaDebito.setAttribute('type', "radio");
+    inputTarjetaDebito.setAttribute('id', "radioDebito");
+    inputTarjetaDebito.setAttribute('name', "radioDebito");
+    inputTarjetaDebito.setAttribute('value', "debito");
+
+    let labelTarjetaDebito = document.createElement("label");
+    labelTarjetaDebito.setAttribute("for", "radioDebito");
+    labelTarjetaDebito.innerText = "Tarjeta de Débito";
+
+    let inputTarjetaCredito = document.createElement("input");
+    inputTarjetaCredito.setAttribute('type', "radio");
+    inputTarjetaCredito.setAttribute('id', "radioCredito");
+    inputTarjetaCredito.setAttribute('name', "radioCredito");
+    inputTarjetaCredito.setAttribute('value', "credito");
+
+    let labelTarjetaCredito = document.createElement("label");
+    labelTarjetaCredito.setAttribute("for", "radioCredito");
+    labelTarjetaCredito.innerText = "Tarjeta de Crédito";
+
+    let spanNombre = document.createElement("span");
+    spanNombre.innerText = "Nombre completo";
+
+    let inputNombre = document.createElement("input");
+    inputNombre.setAttribute("type", "text");
+    inputNombre.setAttribute("placeholder", "Ingrese el nombre que figura en la tarjeta");
+    inputNombre.setAttribute("required", "true");
+
+    let spanNumeroTarjeta = document.createElement("span");
+    spanNumeroTarjeta.innerText = "Numero de tarjeta";
+    
+    let inputNumeroTarjeta = document.createElement("input");
+    inputNumeroTarjeta.setAttribute("type", "number");
+    inputNumeroTarjeta.setAttribute("placeholder", "Ingrese el numero de la tarjeta");
+    inputNumeroTarjeta.setAttribute("required", "true");  
+    inputNumeroTarjeta.setAttribute("minlength", 1);
+    inputNumeroTarjeta.setAttribute("maxlength", 16);
+
+    let spanCodigoSeguridad = document.createElement("span");
+    spanCodigoSeguridad.innerText = "Codigo de seguridad";
+    
+    let inputCodigoSeguridad = document.createElement("input");
+    inputCodigoSeguridad.setAttribute("type", "number");
+    inputCodigoSeguridad.setAttribute("placeholder", "Ingrese el codigo de seguridad");
+    inputCodigoSeguridad.setAttribute("required", "true");  
+    inputCodigoSeguridad.setAttribute("minlength", 3);
+    inputCodigoSeguridad.setAttribute("maxlength", 4);
 
     let buttonComprar = document.createElement("button");
+        buttonComprar.setAttribute("type", "submit");
         buttonComprar.innerText = "Comprar";
         buttonComprar.classList.add("btn-compra");
-        buttonComprar.addEventListener('click', () => {
-            // Ejecuta la funcion ralizar compra que muestra una modal con un mensaje de productos reservados
-            // A futuro mostrará un formulario para realizar la compra directamente
-            console.log("entre al boton compraRealizada");
-            compraRealizada();
+    
+    formCompra.addEventListener('submit', (e) => {
+        e.preventDefault();
+        compraRealizada();
+    })
 
-        });
+    fieldsetMetodoPago.append(legendMetodoPago, inputTarjetaDebito, labelTarjetaDebito, inputTarjetaCredito, labelTarjetaCredito, spanNombre, inputNombre, spanNumeroTarjeta, inputNumeroTarjeta, spanCodigoSeguridad, inputCodigoSeguridad);
 
-    modalCompra.append(aCerrar, h3Compra, pCompra1, buttonComprar);
+    formCompra.append(fieldsetCliente, fieldsetMetodoPago, buttonComprar);
+
+    modalCompra.append(aCerrar, h3Compra, pCompra1, formCompra);
     // Traemos el div que esta al mismo nivel de la seccion de productos
     // No termino de darme cuenta como crear un hijo de la modal carrito
     let sectionProductos = document.querySelector("#contenedorProductos");
         sectionProductos.parentNode.appendChild(modalCompra);
     return sectionProductos;
+    } else {
+        let modalCompra = document.createElement("div");
+        modalCompra.classList.add("modalCompra");
+        modalCompra.setAttribute("id", "modalCompra");
+
+        let aCerrar = document.createElement("a");
+        aCerrar.setAttribute("href", "javascript:void(0)");
+        aCerrar.innerText = "X";
+        aCerrar.addEventListener('click', () => {
+            let cerrar = document.querySelector("#modalCompra");
+            cerrar.remove();
+        });
+
+        let pCompra = document.createElement("p");
+        pCompra.innerText = "Para iniciar una compra debe agregar productos al carrito";
+
+        let buttonVolver = document.createElement("Button");
+        buttonVolver.setAttribute("href", "javascript:void(0)");
+        buttonVolver.innerText = "Volver al catalogo";
+        buttonVolver.addEventListener('click', () => {
+            let cerrar = document.querySelector("#modalCompra");
+            cerrar.remove();
+        });
+
+        modalCompra.append(aCerrar, pCompra, buttonVolver);
+        let sectionProductos = document.querySelector("#contenedorProductos");
+        sectionProductos.parentNode.appendChild(modalCompra);
+        return sectionProductos;
+    }
+
+    
 }
 
 function compraRealizada(){

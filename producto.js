@@ -251,7 +251,8 @@ class producto {
             let pNombreMiniProducto = document.createElement("p");
                 pNombreMiniProducto.innerText = `${this.#nombre}`;
             let pPrecioMiniProducto = document.createElement("p");
-                pPrecioMiniProducto.innerText = `Subtotal: $${this.#precio}.-`;
+            let precioSubtotalProducto = this.#precio * this.cantidad;
+                pPrecioMiniProducto.innerText = `Subtotal: $${precioSubtotalProducto}.-`;
             let masMenosProductos = document.createElement("div");
                 masMenosProductos.classList.add("masMenosProductos")
             let pCantProducto = document.createElement("p");
@@ -267,6 +268,8 @@ class producto {
                         for (let producto of aCarrito){
                             if (producto.#id == productoId){
                                 agregarAlCarrito(producto);
+                                precioSubtotalProducto += this.#precio;
+                                pPrecioMiniProducto.innerText = `Subtotal: $${precioSubtotalProducto}.-`;
                                 pCantProducto.innerText = `${this.cantidad}`;
                                 break;
                             }
@@ -283,6 +286,8 @@ class producto {
                 for(let i=0; i<aCarrito.length; i++){
                     if(aCarrito[i].#id == productoId) {
                         eliminarDelCarrito(aCarrito[i], contenedorProducto, i);
+                        precioSubtotalProducto -= this.#precio;
+                        pPrecioMiniProducto.innerText = `Subtotal: $${precioSubtotalProducto}.-`;
                         pCantProducto.innerText = `${this.cantidad}`;
                         break;
                     }

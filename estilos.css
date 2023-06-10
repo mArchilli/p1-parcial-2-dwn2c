@@ -161,7 +161,8 @@ header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos 
     font-weight: 700;
     line-height: 1.5;
     text-align: center;
-    color: var(--bg-color-dark)
+    color: var(--bg-color-dark);
+    
 }
 @media screen and (max-width: 568px) {
     header button {
@@ -200,7 +201,7 @@ header #minicarrito .filtros .btn-eliminar:hover {
 /* Bo
 /* Botones */
 
-/* Seccion Discos */
+/* Seccion Producto */
 #contenedorProductos {
     width: 100%;
     display: flex;
@@ -208,9 +209,11 @@ header #minicarrito .filtros .btn-eliminar:hover {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
+    max-width: 1200px;
+    margin: auto;
 }
 
-/* Card Discos */
+/* Card Producto */
 #contenedorProductos p {
     font-size: 1.5em;
     width: 75%;
