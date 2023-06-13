@@ -9,10 +9,9 @@
     </head>
     <body>
         <header>
-            <h1>Mi carrito</h1>
-            <p>Programación I - Parcial 2 </p>
-            <p><em>Andrea Sanchez Liporace</em></p>
-            <p><em>Matías Archilli</em></p>
+            <h1>LibrarT</h1>
+            <p>Una librería para artistas</p>
+
             <div id="minicarrito">
                 <div class="detalleCarrito">
                     <p><span id="itemsCarrito">0</span> ítems agregados</p>
@@ -21,9 +20,9 @@
                 </div>
                 <div class="filtros">
                     <p>Filtrar por</p>
-                    <button onclick="filtrarPorCategoria('categoria1')">Categoria 1</button>
-                    <button onclick="filtrarPorCategoria('categoria2')">Categoria 2</button>
-                    <button onclick="filtrarPorCategoria('categoria3')">Categoria 3</button>
+                    <button onclick="filtrarPorCategoria('Lápices')">Lápices</button>
+                    <button onclick="filtrarPorCategoria('Óleos')">Óleos</button>
+                    <button onclick="filtrarPorCategoria('Pasteles')">Pasteles</button>
                 </div>
             </div>
         </header>
@@ -32,38 +31,21 @@
             <section id="contenedorProductos"></section>
         </main>
         <footer>
-            <ul>
-                <li>Profesor Fabrizio Carlassara</li>
-                <li><a href="mailto:fabrizio.carlassara@davinci.edu.ar?subject=P1%20-%20Consulta%20-%20DW2[M|T|N][A|B]%20-%20Apellido,%20Nombre" target="_blank">fabrizio.carlassara@davinci.edu.ar</a></li>
-                <li>Programación 1</li>
-            </ul>
+            <div>
+                <ul>
+                    <li>Profesor Fabrizio Carlassara</li>
+                    <li><a href="mailto:fabrizio.carlassara@davinci.edu.ar?subject=P1%20-%20Consulta%20-%20DW2[M|T|N][A|B]%20-%20Apellido,%20Nombre" target="_blank">fabrizio.carlassara@davinci.edu.ar</a></li>
+                    <li>Programación 1</li>
+                </ul>
+                <ul>
+                    <li>Segundo Parcial - Junio 2023</li>
+                    <li><a href="https://github.com/andreaSanchezLiporace/p1-parcial-2-dwn2c">Andrea Sanchez Liporace</a></li>
+                    <li><a href="https://github.com/marchilli/p1-parcial-2-dwn2c/">Matías Archilli</a></li>
+                </ul>
+            </div>
         </footer>
-
-        <!-- Generar el div#modalProducto y su contenido dinámicamente
-        <div class="modal" id="modalProducto">
-            <a class="cerrar" href="javascript:void(0)">X</a>
-            <img src="producto-de-ejemplo.jpg" alt="Nombre del producto" />
-            <h3>Producto</h3>
-            <p>Descripción</p>
-            <p>Precio: <span>$0</span></p>
-            <p>Categoría</p>
-            <button>Agregar</button>
-        </div> -->
-
-        <!-- Generar el div#modalCarrito y su contenido dinámicamente
-        <div class="modal" id="modalCarrito">
-            <a class="cerrar" href="javascript:void(0)">X</a>
-            <p>Items: <span>3</span> - Total: <span>$0</span></p>
-            <hr />
-            <ul>
-                <li>Nombre del producto <span>$0</span> <span>0 items</span> <a href="#">Eliminar</a></li>
-                <li>Nombre del producto <span>$0</span> <span>0 items</span> <a href="#">Eliminar</a></li>
-                <li>Nombre del producto <span>$0</span> <span>0 items</span> <a href="#">Eliminar</a></li>
-            </ul>
-            <button>Vaciar</button>
-            <button>Ir al checkout</button>
-        </div> -->
-        <script src="producto.js"></script>
-        <script src="index.js"></script>
+        <script src="js/productos.json"></script>
+        <script src="js/producto.js"></script>
+        <script src="js/index.js"></script>
     </body>
 </html>

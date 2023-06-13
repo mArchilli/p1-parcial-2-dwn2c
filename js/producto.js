@@ -21,8 +21,10 @@ class producto {
     #categoria;
     #precio;
     #descripcion;
+    cantidad;
+    #stock;
 
-    constructor(nombre, imagen, altImagen, id, categoria, precio, descripcion, cantidad) {
+    constructor(nombre, imagen, altImagen, id, categoria, precio, descripcion, cantidad, stock) {
         this.#nombre = nombre;
         this.#imagen = imagen;
         this.#altImagen = altImagen;
@@ -31,7 +33,7 @@ class producto {
         this.#precio = precio;
         this.#descripcion = descripcion;
         this.cantidad = cantidad;
-
+        this.stock = stock;
     }
 
     /**
@@ -91,6 +93,14 @@ class producto {
     }
 
     /**
+     * Obtiene el stock del producto.
+     * @returns {number} El stock del producto.
+    */
+    getStock () {
+        return this.#stock;
+    }
+
+    /**
      * Con este método se muestra el producto en el documento HTML.
      * Se crea la siguiente estructura:
      * <article class="card">
@@ -110,7 +120,7 @@ class producto {
         *                  <p>Código: ${this.#id}</p>
         *                  <p>Categoria: ${this.#categoria}</p>
         *                  <p>Precio: ${this.#precio}</p>
-        *                  <p>Descripcion: ${this.#descripcion}</p>
+        *                  <p>${this.#descripcion}</p>
         *                  <button>Agregar al carrito</button>
         *              </div>
      *              </div>
@@ -131,7 +141,7 @@ class producto {
             let pCategoria = document.createElement("p");
                 pCategoria.innerText = `Categoria: ${this.#categoria}`;
             let pPrecio = document.createElement("p");
-                pPrecio.innerText = `Precio: $${this.#precio}.-`;
+                pPrecio.innerText = `Precio: $ ${this.#precio}.-`;
             // La descripción la mostramos en el detalle
             //let pDescripcion = document.createElement("p");
                 //pDescripcion.innerText = `Descripcion: ${this.#descripcion}`;
@@ -146,7 +156,6 @@ class producto {
                     const productoId = articleProducto.dataset.id;
                     for (let producto of aCatalogo){
                         if (producto.#id == productoId){
-                            //console.log(producto);
                             agregarAlCarrito(producto);
                             break;
                         }
@@ -199,9 +208,9 @@ class producto {
                                 let pCategoria = document.createElement("p");
                                     pCategoria.innerText = `Categoria: ${this.#categoria}`;
                                 let pPrecio = document.createElement("p");
-                                    pPrecio.innerText = `Precio: $${this.#precio}.-`;
+                                    pPrecio.innerText = `Precio: $ ${this.#precio}.-`;
                                 let pDescripcion = document.createElement("p");
-                                    pDescripcion.innerText = `Descripcion: ${this.#descripcion}`;
+                                    pDescripcion.innerText = `${this.#descripcion}`;
                             // Botón agregar - detalle producto
                             let buttonAgregarCarrito = document.createElement ("button");
                                 buttonAgregarCarrito.innerText = `Agregar al carrito`;

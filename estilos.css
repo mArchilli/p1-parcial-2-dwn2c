@@ -5,8 +5,10 @@
     --primary-color-dark: #ef461c;
     --secondary-color: #c0d5ff;
     --secondary-color-dark: #011743;
+    --sinStock-color: #9c0909;
     --bg-color-dark: #14171d;
     --bg-color-light: #353639;
+    --bg-color-light-light: #777980;
     --color-b: #fff;
 }
 html {
@@ -150,7 +152,7 @@ header #minicarrito p span {
 }
 
 /* Botones */
-header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos .card .btn-agregarCarrito, .modalDetalle .datosProducto .detalleProducto .btn-agregarCarrito, header #minicarrito .filtros button, .modalCarrito .btn-vaciarCarrito, .modalCarrito .btn-compra  {
+header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos .card .btn-agregarCarrito, .modalDetalle .datosProducto .detalleProducto .btn-agregarCarrito, header #minicarrito .filtros button, .modalCarrito .btn-vaciarCarrito, .modalCarrito .btn-compra, .btn-finCompra, .btnVolver {
     margin: .5em 0;
     border: 1px solid var(--bg-color-light);
     border-radius: .5em;
@@ -162,7 +164,10 @@ header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos 
     line-height: 1.5;
     text-align: center;
     color: var(--bg-color-dark);
-    
+}
+.btn-finCompra {
+    width: 30%;
+    margin: auto 35%;
 }
 @media screen and (max-width: 568px) {
     header button {
@@ -172,6 +177,10 @@ header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos 
     header #minicarrito .filtros button {
         width: 40%;
         margin: 4% 5%;
+    }
+    .btn-finCompra {
+        width: 70%;
+        margin: auto 15%;
     }
 }
 @media screen and (max-width: 450px) {
@@ -183,8 +192,12 @@ header button, #contenedorProductos .card .btn-verDetalle, #contenedorProductos 
         width: 90%;
         margin: 4% 5%;
     }
+    .btn-finCompra {
+        width: 90%;
+        margin: auto 5%;
+    }
 }
-header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contenedorProductos .card .btn-agregarCarrito:hover, .modalDetalle .datosProducto .detalleProducto .btn-agregarCarrito:hover, .modalCarrito .btn-vaciarCarrito:hover, .modalCarrito .btn-compra:hover {
+header button:hover, #contenedorProductos .card .btn-verDetalle:hover, #contenedorProductos .card .btn-agregarCarrito:hover, .modalDetalle .datosProducto .detalleProducto .btn-agregarCarrito:hover, .modalCarrito .btn-vaciarCarrito:hover, .modalCarrito .btn-compra:hover, .btn-finCompra:hover, .btnVolver:hover {
     background: var(--primary-color-dark);
     color: var(--color-b);
     border: 1px solid var(--color-b);
@@ -302,16 +315,40 @@ header #minicarrito .filtros .btn-eliminar:hover {
 }
 
 /* destacar el disco*/
-.discoMasLargo{
-    background-color: var(--bg-color-dark) !important;
+.sinStock{
+    background-color: var(--bg-color-light-light) !important;
 }
-.discoMasLargo::before {
+.sinStock::before {
     position: absolute;
     top: -13px;
     left: -50px;
     display: block;
     box-sizing: border-box;
-    content: "Disco mas extenso";
+    content: "Sin Stock";
+    text-transform: uppercase;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 700;
+    color: #ffffff;
+    background: transparent;
+    height: 0;
+    width: 150px;
+    border: 38px solid transparent;
+    border-bottom: 38px solid var(--sinStock-color);
+    line-height: 18px;
+    transform: rotate(-45deg);
+}
+.ultimaUnidad{
+    background-color: var(--bg-color-dark) !important;
+}
+.ultimaUnidad::before {
+    position: absolute;
+    top: -13px;
+    left: -50px;
+    display: block;
+    box-sizing: border-box;
+    content: "Última unidad";
     text-transform: uppercase;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12px;
@@ -328,14 +365,12 @@ header #minicarrito .filtros .btn-eliminar:hover {
 }
 
 /** Modales */
-/* Modal Carrito */
-/* Modal Detalle Producto */
 .modalDetalle, .modalCarrito, .modalCompra, .modalCompraRealizada {
 	position: fixed;
 	z-index: 2;
-    width: 75%;
-    margin: 5% 12.5%;
-    height: 75%;
+    width: 95%;
+    margin: 2% 2.5%;
+    height: auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -346,7 +381,22 @@ header #minicarrito .filtros .btn-eliminar:hover {
 	right: 0;
 	background-color: rgba(0,0,0,.9);
     border: 1px solid var(--color-b);
-    border-radius: 2%;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    padding: 5% 0%;
+}
+/* Estilos para navegadores webkit (Google Chrome, Safari) */
+.modalDetalle::-webkit-scrollbar, .modalCarrito::-webkit-scrollbar, .modalCompra::-webkit-scrollbar, .modalCompraRealizada::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+}
+.modalDetalle::-webkit-scrollbar-track, .modalCarrito::-webkit-scrollbar-track, .modalCompra::-webkit-scrollbar-track, .modalCompraRealizada::-webkit-scrollbar-track {
+    background-color: var(--bg-color-dark); /* Color de fondo de la barra de desplazamiento */
+}
+.modalDetalle::-webkit-scrollbar-thumb, .modalCarrito::-webkit-scrollbar-thumb, .modalCompra::-webkit-scrollbar-thumb, .modalCompraRealizada::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color); /* Color del mango de la barra de desplazamiento */
+}
+.modalDetalle::-webkit-scrollbar-thumb:hover, .modalCarrito::-webkit-scrollbar-thumb:hover, .modalCompra::-webkit-scrollbar-thumb:hover, .modalCompraRealizada::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-color-dark); /* Color del mango de la barra de desplazamiento al pasar el cursor */
 }
 @media screen and (max-width: 568px) {
     .modalCarrito {
@@ -389,15 +439,21 @@ header #minicarrito .filtros .btn-eliminar:hover {
         border-radius: 2%;
     }
 }
+@media screen and (max-width: 400px) {
+    .datosProducto {
+        width: 90%;
+        margin: 2% 5%;
+    }
+}
 .modalDetalle a, .modalCarrito a, .modalCompra a, .modalCompraRealizada a {
     position: absolute;
-    z-index: 1;
+    z-index: 3;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    top: -1em;
-    right: -1em;
+    top: 1.5em;
+    right: 1.5em;
     border-radius: 2.5em;
     width: 3em;
     height: 3em;
@@ -426,6 +482,8 @@ header #minicarrito .filtros .btn-eliminar:hover {
 @media screen and (max-width: 450px) {
     .modalDetalle img {
         width: 60%;
+        margin-top: 2em;
+        margin-bottom: .5em;
     }
 }
 .detalleProducto {
@@ -527,23 +585,32 @@ header #minicarrito .filtros .btn-eliminar:hover {
 }
 @media screen and (max-width: 750px) {
     .detalleProducto {
-        width: 80%;
-        height: 60%;
+        width: 90%;
+        height: auto;
+        margin-top: 1em;
     }
 }
 .modalDetalle h3, .modalCarrito h3, .modalCompra h3, .modalCompraRealizada h3 {
     width: 100%;
     font-size: 3em;
-    margin: 3em 0 0
+    margin: 5em 0 1em;
 }
 @media screen and (max-width: 750px) {
     .modalDetalle h3, .modalCarrito h3, .modalCompra h3, .modalCompraRealizada h3{
-        margin: 2em 0 0
+        margin: .8em 0 0;
+        font-size: 2em;
     }
 }
-.modalDetalle p, .modalCarrito p, .modalCompra p, .modalCompraRealizada p {
+.modalDetalle p, .modalCarrito p, .modalCompraRealizada p {
 	margin: 0 0 1em 0;
 	text-align: left;
+	color: var(--color-b);
+    font-size: 1.5em;
+}
+.modalCompra p {
+    width: 90%;
+	margin: 0 5% 1% 0;
+	text-align: center;
 	color: var(--color-b);
     font-size: 1.5em;
 }
@@ -598,8 +665,14 @@ footer {
     padding: 2em;
     color: var(--color-b);
 }
-
-footer ul {
+footer div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+footer div ul {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -608,14 +681,14 @@ footer ul {
     list-style: none;
 }
 
-footer ul li {
+footer div ul li {
     font-family: 'Montserrat';
     font-size: 1.4em;
     line-height: 1.5;
     text-align: center;
 }
 
-footer ul li a {
+footer div ul li a {
     font-family: 'Montserrat';
     font-size: 1em;
     text-decoration: none;
@@ -627,8 +700,8 @@ footer ul li a:hover {
 }
 
 /*
- Web
- */
+    Web
+*/
 @media screen and (min-width: 960px) {
     /** Footer */
     footer ul {
@@ -636,3 +709,64 @@ footer ul li a:hover {
     }
 
 }
+
+/* form */
+form {
+    width: 90%;
+    margin: 0% 5%;
+}
+fieldset {
+    width: 90%;
+    margin: 2% 5%;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+fieldset legend {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    padding: 0 3%;
+    font-weight: bold;
+    text-decoration: underline;
+}
+fieldset span {
+    width: 90%;
+    margin: 1% 5% 0%;
+    font-size: 1.5em;
+}
+fieldset label {
+    width: 40%;
+    margin: 0% 0%;
+    font-size: 1.5em;
+    text-align: left;
+}
+fieldset input {
+    font-size: 1.5em;
+    width: 90%;
+    margin: 0% 5% 1%;
+}
+fieldset .radioInput {
+    font-size: 1.5em;
+    width: 5% !important;
+    margin: 0% 0%;
+    margin-right: 1%;
+}
+.divTipoTarjetas {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    margin: 1% 0%;
+}
+.divInfoTarjetas {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+/* form */
