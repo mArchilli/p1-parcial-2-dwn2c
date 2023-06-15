@@ -235,6 +235,11 @@ function verCarrito () {
                     divProductosCarrito.innerHTML = "";
                     pPrecioTotal.innerText = "Total a pagar: $" + precioTotal;
                     pCantProductos.innerText = "Cantidad de productos: " + contadorProductos;
+
+                    let itemCarrito = document.querySelector("#itemsCarrito");
+                    let precioFinal = document.querySelector("#totalPagar");
+                    precioFinal.innerText = precioTotal;
+                    itemCarrito.innerText = contadorProductos;
                 });
             let buttonComprar = document.createElement("button");
                 buttonComprar.innerText = "Iniciar Compra";
