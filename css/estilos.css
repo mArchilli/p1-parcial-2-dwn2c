@@ -770,3 +770,13 @@ fieldset .radioInput {
     align-items: center;
 }
 /* form */
+
+.pDescripcionCard {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}

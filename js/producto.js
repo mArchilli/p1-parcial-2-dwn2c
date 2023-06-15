@@ -143,8 +143,9 @@ class producto {
             let pPrecio = document.createElement("p");
                 pPrecio.innerText = `Precio: $ ${this.#precio}.-`;
             // La descripción la mostramos en el detalle
-            //let pDescripcion = document.createElement("p");
-                //pDescripcion.innerText = `Descripcion: ${this.#descripcion}`;
+            let pDescripcion = document.createElement("p");
+                pDescripcion.classList.add("pDescripcionCard");
+                pDescripcion.innerText = `Descripcion: ${this.#descripcion}`;
 
             // Botón agregar - card producto
             let buttonAgregarCarrito = document.createElement ("button");
@@ -234,7 +235,7 @@ class producto {
                         return sectionProductos;
                 });
         // Apendeamos estructura al article del producto
-        articleProducto.append(h3Nombre, imgImagen, pId, pCategoria, pPrecio, buttonAgregarCarrito, buttonVerMas);
+        articleProducto.append(h3Nombre, imgImagen, pId, pCategoria, pPrecio, pDescripcion, buttonAgregarCarrito, buttonVerMas);
         return articleProducto;
     }
 
