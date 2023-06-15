@@ -127,10 +127,10 @@ function agregarAlCarrito(producto){
     contadorProductos++;
     if(itemCarritoModal || precioFinalModal != null){
         itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
-        precioFinalModal.innerText = "Total a pagar: $" + precioTotal;
+        precioFinalModal.innerText = "Total a pagar: $" + precioTotal.toLocaleString();
     }
     itemCarrito.innerText = contadorProductos;
-    precioFinal.innerText = precioTotal;
+    precioFinal.innerText = precioTotal.toLocaleString();
 }
 
 /**
@@ -161,10 +161,10 @@ function eliminarDelCarrito(producto, contenedorProducto, indice){
     contadorProductos--;
         if(itemCarritoModal || precioFinalModal != null){
             itemCarritoModal.innerText = "Cantidad de productos: " + contadorProductos;
-            precioFinalModal.innerText = "Total a pagar: $" + precioTotal;
+            precioFinalModal.innerText = "Total a pagar: $" + precioTotal.toLocaleString();
         }
         itemCarrito.innerText = contadorProductos;
-        precioFinal.innerText = precioTotal;
+        precioFinal.innerText = precioTotal.toLocaleString();
 }
 
 /**
@@ -212,7 +212,7 @@ function verCarrito () {
             totalesCarrito.classList.add("totalesCarrito");
             let pPrecioTotal = document.createElement("p");
                 pPrecioTotal.setAttribute('id','pPrecioTotalModal');
-                pPrecioTotal.innerText = "Total a pagar: $" + precioTotal;
+                pPrecioTotal.innerText = "Total a pagar: $" + precioTotal.toLocaleString();
             let pCantProductos = document.createElement("p");
                 pCantProductos.setAttribute('id','pCantProductosModal');
                 pCantProductos.innerText = "Cantidad de productos: " + contadorProductos;
@@ -476,6 +476,17 @@ function compraRealizada(){
         buttonVolver.innerText = "Volver al catalogo";
         buttonVolver.addEventListener('click', () => {
             let cerrar = document.querySelector("#modalCompraRealizada");
+            
+            aCarrito = [];
+            precioTotal = 0;
+            contadorProductos = 0;
+
+            let itemCarrito = document.querySelector("#itemsCarrito");
+            let precioFinal = document.querySelector("#totalPagar");
+
+            precioFinal.innerText = precioTotal;
+            itemCarrito.innerText = contadorProductos;
+            
             cerrar.remove();
         });
 
