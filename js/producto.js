@@ -208,7 +208,7 @@ class producto {
                                 let pCategoria = document.createElement("p");
                                     pCategoria.innerText = `Categoria: ${this.#categoria}`;
                                 let pPrecio = document.createElement("p");
-                                    pPrecio.innerText = `Precio: $ ${this.#precio}.-`;
+                                    pPrecio.innerText = `Precio: $ ${(this.#precio).toLocaleString()}.-`;
                                 let pDescripcion = document.createElement("p");
                                     pDescripcion.innerText = `${this.#descripcion}`;
                             // Botón agregar - detalle producto
